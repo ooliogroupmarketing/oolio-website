@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+npm-debug.log
+package-lock.json
+
+# HubSpot local server files
+.cms-config.json
+.hs-cache/
+.hs-dev-server/
+
+# Mac system files
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log

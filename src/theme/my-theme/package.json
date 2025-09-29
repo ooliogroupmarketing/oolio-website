@@ -1,0 +1,19 @@
+{
+  "name": "oolio-website",
+  "version": "1.0.0",
+  "description": "Oolio Website",
+  "scripts": {
+    "start": "hs-cms-dev-server .",
+    "deploy": "hs project upload"
+  },
+  "type": "module",
+  "keywords": [],
+  "dependencies": {
+    "@hubspot/cms-components": "latest",
+    "react": "^18.1.0",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@hubspot/cms-dev-server": "latest"
+  }
+}

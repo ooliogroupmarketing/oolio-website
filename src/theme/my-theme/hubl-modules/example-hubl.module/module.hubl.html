@@ -1,0 +1,26 @@
+{# Module styles #}
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .wrapper--background {
+        {% if module.styles.background.color.color %}
+          background-image: none;
+          background-color: rgba({{ module.styles.background.color.color|convert_rgb }}, {{ module.styles.background.color.opacity / 100 }});
+        {% endif %}
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="wrapper wrapper--background" x-data="{ open: false }">
+  {{ module.rich_text }}
+  <button
+    @click="open = !open"
+    class="button"
+  >
+    <span x-text="open ? 'Hide' : 'See more'"></span>
+  </button>
+  <div class="moreContent" x-show="open">
+    More content.
+  </div>
+</div>
