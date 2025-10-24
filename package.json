@@ -2,14 +2,18 @@
   "name": "oolio-website",
   "description": "Oolio Website",
   "devDependencies": {
+    "@hubspot/cli": "latest",
     "@hubspot/prettier-plugin-hubl": "latest",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.31.10",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "yarpm": "^1.2.0"
   },
   "scripts": {
-    "start": "cd src/theme/my-theme && npm start",
+    "start": "cd src/theme/my-theme && yarpm start",
+    "postinstall": "cd src/theme/my-theme && yarpm install",
+    "lint:js": "eslint . --ext .js,.jsx",    
     "prettier": "prettier . --check",
     "deploy": "hs project upload"
   },

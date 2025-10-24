@@ -8,6 +8,9 @@ package-lock.json
 .hs-cache/
 .hs-dev-server/
 
+# Build files
+dist
+
 # Mac system files
 .DS_Store
 

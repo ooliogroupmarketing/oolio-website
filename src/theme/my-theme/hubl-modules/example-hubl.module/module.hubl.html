@@ -2,25 +2,23 @@
 {% require_css %}
   <style>
     {% scope_css %}
-      .wrapper--background {
+      .example-hubl-module--background {
+        background-image: none;
         {% if module.styles.background.color.color %}
-          background-image: none;
           background-color: rgba({{ module.styles.background.color.color|convert_rgb }}, {{ module.styles.background.color.opacity / 100 }});
+        {% else %}
+          background-color: rgba({{ theme.global_colors.secondary.color|convert_rgb }}, {{ theme.global_colors.secondary.opacity / 100 }});
         {% endif %}
       }
     {% end_scope_css %}
   </style>
 {% end_require_css %}
 
-<div class="wrapper wrapper--background" x-data="{ open: false }">
+<div class="example-hubl-module example-hubl-module--background" x-data>
   {{ module.rich_text }}
   <button
-    @click="open = !open"
-    class="button"
+    @click="alert('Alpine button clicked!'); console.log('Alpine interactivity works!')"
   >
-    <span x-text="open ? 'Hide' : 'See more'"></span>
+    Click me
   </button>
-  <div class="moreContent" x-show="open">
-    More content.
-  </div>
 </div>

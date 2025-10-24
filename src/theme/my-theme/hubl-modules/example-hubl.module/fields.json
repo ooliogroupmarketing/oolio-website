@@ -5,7 +5,7 @@
     "required": false,
     "locked": false,
     "type": "richtext",
-    "default": "<p>Example Hubl Module.</p>"
+    "default": "<p>Example Hubl Module</p>"
   },  
   {
     "label": "Styles",
@@ -21,7 +21,11 @@
           {
             "label": "Color",
             "name": "color",
-            "type": "color"
+            "type": "color",
+            "default": {
+              "color": null,
+              "opacity": 100
+            }
           }
         ]
       }

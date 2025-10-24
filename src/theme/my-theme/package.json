@@ -1,19 +1,24 @@
 {
   "name": "oolio-website",
   "version": "1.0.0",
+  "type": "module",
   "description": "Oolio Website",
   "scripts": {
-    "start": "hs-cms-dev-server .",
+    "start": "hs-cms-dev-server . --ssl",
     "deploy": "hs project upload"
   },
-  "type": "module",
   "keywords": [],
   "dependencies": {
     "@hubspot/cms-components": "latest",
-    "react": "^18.1.0",
-    "react-dom": "^18.3.1"
+    "dayjs": "^1.11.11",
+    "prop-types": "^15.8.1",
+    "react": "^18.1.0"
   },
   "devDependencies": {
-    "@hubspot/cms-dev-server": "latest"
+    "@hubspot/cms-dev-server": "latest",
+    "@testing-library/react": "^13.4.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^20.0.1",
+    "vitest": "^0.24.3"
   }
-}
+} 

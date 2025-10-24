@@ -1,45 +1,28 @@
-import React, { useState } from 'react';
-import {
-  ModuleFields,
-  RichTextField,
-} from '@hubspot/cms-components/fields';
-import { RichText } from '@hubspot/cms-components';
-import styles from '../../../styles/example-react.module.css';
+import { Island } from '@hubspot/cms-components';
+import ExampleIsland from '../../islands/ExampleIsland.tsx?island';
+import { ModuleFields, RichTextField, ColorField, FieldGroup } from '@hubspot/cms-components/fields';
 
-export function Component({ hublParameters }) {
-  console.log('ExampleReact module mounted');
-  const { brandColors } = hublParameters;
-  const [showMore, setShowMore] = useState(false);
+export const hublDataTemplate = `
+{% set hublData = {
+  "themePrimaryColor": theme.global_colors.primary
+} %}
+`;
 
-  return (
-    <div
-      className={styles.wrapper}
-      style={{
-        backgroundColor: brandColors?.color,
-        opacity: brandColors?.opacity,
-      }}
-    >
-      <RichText fieldPath="richText" />
-      <button
-        className={styles.button}
-        onClick={() => {
-          console.log('Button clicked, showMore:', !showMore);
-          setShowMore(prev => !prev);
-        }}
-      >
-        {showMore ? 'Hide' : 'See more'}
-      </button>
-      {showMore && (
-        <div className={styles.moreContent}>
-          More content.
-        </div>
-      )}
-    </div>
-  );
+export function Component({ fieldValues, hublData }: any) {
+  const { richText, styles } = fieldValues;
+  const backgroundColor = styles?.background?.color;
+  const { themePrimaryColor } = hublData || {};
+
+  return <Island 
+    module={ExampleIsland} 
+    richText={richText}
+    backgroundColor={backgroundColor}
+    themePrimaryColor={themePrimaryColor}
+  />;
 }
 
 const richTextFieldDefaultValue = `
-  <p>Example React Module.</p>
+  <p>Example React Module</p>
 `;
 
 export const fields = (
@@ -49,6 +32,15 @@ export const fields = (
       label="Rich Text"
       default={richTextFieldDefaultValue}
     />
+    <FieldGroup name="styles" label="Styles" tab="STYLE">
+      <FieldGroup name="background" label="Background">
+        <ColorField
+          name="color"
+          label="Color"
+          showOpacity={true}
+        />
+      </FieldGroup>  
+    </FieldGroup>
   </ModuleFields>
 );
 
