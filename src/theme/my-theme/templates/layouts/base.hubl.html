@@ -42,6 +42,7 @@
       </main>
 
       {% block footer %}
+        {% global_partial path="../partials/footer.hubl.html" %}
       {% endblock footer %}      
     </div>
     {{ require_js(get_asset_url("../../assets/js/main.js")) }}

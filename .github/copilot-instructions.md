@@ -13,89 +13,66 @@ This is a **HubSpot CMS theme project** using a hybrid architecture: HubL templa
 ### React Islands Pattern
 ```tsx
 // Module (server-rendered): /components/modules/*/index.tsx
-export function Component({ fieldValues }) {
+export const hublDataTemplate = `{% set hublData = { "themePrimaryColor": theme.global_colors.primary } %}`;
+export function Component({ fieldValues, hublData }) {
   const { richText, styles } = fieldValues;
-  const backgroundColor = styles?.background?.color;
-  return <Island module={ExampleIsland} richText={richText} backgroundColor={backgroundColor} />;
+  return <Island module={ExampleIsland} richText={richText} backgroundColor={styles?.background?.color} themePrimaryColor={hublData?.themePrimaryColor} />;
 }
 export const fields = (<ModuleFields>...</ModuleFields>);
 export const meta = { label: 'Module Name' };
 
-// Island (client-hydrated): /components/islands/*.tsx  
-export default function ExampleIsland({ richText, backgroundColor }) {
-  const backgroundStyle = backgroundColor ? {
-    backgroundColor: backgroundColor.color,
-    opacity: backgroundColor.opacity / 100
-  } : {};
+// Island (client-hydrated): /components/islands/*.tsx with ?island suffix  
+export default function ExampleIsland({ richText, backgroundColor, themePrimaryColor }) {
+  // Parse theme variables (they come as JSON strings)
+  const parsedThemeColor = typeof themePrimaryColor === 'string' ? JSON.parse(themePrimaryColor) : themePrimaryColor;
   return <div style={backgroundStyle} dangerouslySetInnerHTML={{ __html: richText }} />;
 }
 ```
 
-### HubL Template Integration
-- **Templates**: `/templates/*.hubl.html` - Use `{% dnd_module path="../components/modules/ModuleName" %}`
-- **Layouts**: `/templates/layouts/base.hubl.html` - Includes Alpine.js for HubL interactivity
-- **Dual Interactivity**: Alpine.js for HubL modules, React for Islands
+### Alpine.js Navigation Architecture
+- **Complex state management**: Use inline `x-data` with init() functions for scroll behavior
+- **Mega menu patterns**: `x-show="mobileMenuOpen && !headerHidden"` with `x-transition` classes
+- **Mobile menu integration**: Body scroll locking with `x-effect="document.body.classList.toggle('menu-open', mobileMenuOpen)"`
 
 ## Critical Development Patterns
 
-### Module Registration
-1. **React Modules**: Must export `Component`, `fields`, and `meta`
-2. **HubL Modules**: Use `/hubl-modules/*/module.hubl.html` with Alpine.js and `x-data` directive
-3. **Template Reference**: Use relative paths `../components/modules/ModuleName` in templates
+### Module Registration & Modern Patterns
+1. **React Modules**: Export `Component`, `fields`, `meta`, plus optional `hublDataTemplate` for theme variables
+2. **HubL Modules**: Use complex Alpine.js with inline `x-data` objects for navigation, forms, and interactive UI
+3. **Field Groups**: Nested repeatable groups with `occurrence: {min: 1, max: 6}` for modular content like footer navigation menus
 
-### Field Structure & Access
-```tsx
-// Nested FieldGroups for organization
-export const fields = (
-  <ModuleFields>
-    <RichTextField name="richText" label="Rich Text" />
-    <FieldGroup name="styles" label="Styles" tab="STYLE">
-      <FieldGroup name="background" label="Background">
-        <ColorField name="color" label="Color" />
-      </FieldGroup>
-    </FieldGroup>
-  </ModuleFields>
-);
-
-// Access nested fields: fieldValues.styles.background.color
+### Advanced Field Patterns
+```json
+// Repeatable groups for scalable content (footer-nav.module/fields.json)
+{
+  "name": "navigation_menus", "type": "group", "occurrence": {"min": 1, "max": 6},
+  "children": [
+    {"name": "nav_title", "type": "text"},
+    {"name": "nav_links", "type": "group", "occurrence": {"min": 0, "max": 10}, 
+     "children": [{"name": "link_text", "type": "text"}, {"name": "link_url", "type": "url"}]}
+  ]
+}
 ```
 
-### Rich Text Handling
-```tsx
-// React: Always use dangerouslySetInnerHTML for HubSpot rich text fields
-<div dangerouslySetInnerHTML={{ __html: richText }} />
-
-// HubL: Use rich_text filter for proper HTML rendering
-{{ module.rich_text|rich_text }}
-```
-
-### Drag & Drop Areas with Layout
+### Alpine.js Component Architecture
 ```html
-{% dnd_area "area_name", label="Area Label" %}
-  {% dnd_section %}
-    {% dnd_module path="../components/modules/ModuleName" offset=0 width=6 %}
-    {% dnd_module path="../hubl-modules/module-name.module" offset=6 width=6 %}
-  {% end_dnd_section %}
-{% end_dnd_area %}
+<!-- Advanced state management with scroll integration -->
+<nav x-data="{
+  mobileMenuOpen: false, megaMenu1Open: false, headerHidden: false, lastScrollY: 0,
+  init() { window.addEventListener('scroll', () => { /* complex scroll logic */ }); }
+}" x-effect="$el.closest('.header').classList.toggle('header--hidden', headerHidden)">
+  <!-- Mega menus with conditions and transitions -->
+  <div x-show="megaMenu1Open && !headerHidden" 
+       x-transition:enter="mega-menu-enter" x-transition:leave="mega-menu-leave">
+</nav>
 ```
 
-### CSS Module Patterns
-```tsx
-// Islands can have local CSS modules in ./styles/ directory
-import styles from './styles/example-island.module.css';
-
-// Use .module.css extension for CSS modules, regular .css for global styles
-// CSS modules provide scoped class names via styles.className
-```
-
-### Alpine.js Interactivity
-```html
-<!-- HubL modules use Alpine.js for client-side behavior -->
-<div x-data>
-  <button @click="alert('Alpine clicked!'); console.log('Alpine works!')">
-    Click me
-  </button>
-</div>
+### CSS Transition Classes (not Tailwind)
+```css
+/* Custom Alpine.js transitions for mega menus */
+.mega-menu-enter { transition: opacity 200ms ease-out, transform 200ms ease-out; }
+.mega-menu-enter-start { opacity: 0; transform: translateY(-10px); }
+.mega-menu-leave-end { opacity: 0; transform: translateY(-10px); }
 ```
 
 ## Development Workflow
@@ -127,7 +104,7 @@ src/theme/my-theme/
 - **CSS Modules**: Import as `styles from './styles/file.module.css'` (local) or `'../../styles/file.module.css'` (global)
 - **Asset References**: Use `{{ asset_url('path') }}` in HubL, direct imports in React
 - **Field Access**: `fieldValues.styles.background.color` in React, `module.styles.background.color` in HubL
-- **Color Fields**: Return `{color: "#hex", opacity: 100}` objects for styling
+- **Color Fields**: Return objects with color and opacity properties for styling
 
 ## Troubleshooting
 - **Module not rendering**: Verify path uses `../components/modules/ModuleName`

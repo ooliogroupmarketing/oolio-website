@@ -3,6 +3,7 @@
 body {
   line-height: 1.4;
   overflow-wrap: break-word;
+  letter-spacing: -0.02em;
 }
 
 /* Handles word breaking for a few specific languages which handle breaks in words differently. If your content is not translated into these languages, you can safely remove this.  */

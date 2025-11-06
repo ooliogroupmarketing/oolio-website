@@ -1,0 +1,27 @@
+.footer {
+  background-color: #222;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer logo */
+
+.footer__logo {
+  align-items: center;
+  display: flex;
+  height: auto;
+  max-width: 153px;
+  overflow: hidden;
+}
+
+.footer__logo img {
+  max-width: 100%;
+}
+
+.footer__subscribe {
+  display: none;
+}
+

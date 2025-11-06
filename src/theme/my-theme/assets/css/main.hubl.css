@@ -12,17 +12,11 @@ This is where reset, normalize & box-sizing styles go.
 {% include './generic/_reset.hubl.css' %}
 {% include './generic/_normalize.hubl.css' %}
 
-/* Objects
-Non-cosmetic design patterns including grid and layout classes)
-*/
-
-{% include './objects/_layout.hubl.css' %}
-{% include './objects/_containers-dnd.hubl.css' %}
-
 /* Elements
 Base HTML elements are styled in this section (<body>, <h1>, <a>, <p>, <button> etc.)
 */
 
+{% include './elements/_layout.hubl.css' %}
 {% include './elements/_typography.hubl.css' %}
 {% include './elements/_buttons.hubl.css' %}
 {% include './elements/_forms.hubl.css' %}
@@ -33,6 +27,7 @@ Specific pieces of UI that are stylized. Typically used for global partial styli
 */
 
 {% include './components/_header.hubl.css' %}
+{% include './components/_footer.hubl.css' %}
 {% include './components/_default-modules.hubl.css' %}
 
 /* Utilities

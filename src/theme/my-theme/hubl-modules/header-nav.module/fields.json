@@ -1,0 +1,115 @@
+[
+  {
+    "name": "navigation_menus",
+    "label": "Navigation Menus",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "default": 1
+    },
+    "children": [
+      {
+        "name": "nav_title",
+        "label": "Menu Title",
+        "required": true,
+        "locked": false,
+        "type": "text",
+        "default": "Menu Title"
+      },
+      {
+        "name": "nav_links",
+        "label": "Menu Links",
+        "required": false,
+        "locked": false,
+        "type": "group",
+        "occurrence": {
+          "min": 0,
+          "max": 10,
+          "default": 3
+        },
+        "children": [
+          {
+            "name": "link_text",
+            "label": "Link Text",
+            "required": true,
+            "locked": false,
+            "type": "text",
+            "default": "Link"
+          },
+          {
+            "name": "link_url",
+            "label": "Link URL",
+            "required": true,
+            "locked": false,
+            "type": "url",
+            "default": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          }
+        ],
+        "default": [
+          {
+            "link_text": "Link 1",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          },
+          {
+            "link_text": "Link 2",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          },
+          {
+            "link_text": "Link 3",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          }
+        ]
+      }
+    ],
+    "default": [
+      {
+        "nav_title": "Solutions",
+        "nav_links": [
+          {
+            "link_text": "Point of Sales",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          },
+          {
+            "link_text": "Sales",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          },
+          {
+            "link_text": "Service",
+            "link_url": {
+              "content_id": null,
+              "href": "#",
+              "type": "EXTERNAL"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

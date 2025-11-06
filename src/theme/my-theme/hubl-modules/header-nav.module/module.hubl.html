@@ -1,0 +1,258 @@
+<nav 
+  role="navigation" 
+  aria-label="Main Navigation"
+  class="header-nav" 
+  x-data="{
+    mobileMenuOpen: false,
+    megaMenu1Open: false,
+    megaMenu2Open: false,
+    headerHidden: false,
+    headerTop: true,
+    lastScrollY: 0,
+    scrollPosition: 0,
+    
+    init() {
+      // Header scroll functionality
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        // Track if we're at the top of the page
+        this.headerTop = currentScrollY <= 220;
+        
+        // Don't hide header if mobile menu is open
+        if (this.mobileMenuOpen) {
+          this.headerHidden = false;
+          this.lastScrollY = currentScrollY;
+          return;
+        }
+        
+        // Show header when scrolling up, hide when scrolling down (after 100px)
+        if (currentScrollY < this.lastScrollY) {
+          // Scrolling up - show header
+          this.headerHidden = false;
+        } else if (currentScrollY > 100 && currentScrollY > this.lastScrollY) {
+          // Scrolling down past 100px - hide header
+          // Don't force close mega menus here, let x-show handle it with transitions
+          this.headerHidden = true;
+        }
+        
+        // Always show header at top of page
+        if (currentScrollY <= 100) {
+          this.headerHidden = false;
+        }
+        
+        this.lastScrollY = currentScrollY;
+      });
+    }
+  }"
+  x-effect="
+    $el.closest('.header').classList.toggle('header--hidden', headerHidden);
+    $el.closest('.header').classList.toggle('header--top', headerTop);
+    $el.closest('.header').classList.toggle('header--menu-open', megaMenu1Open || megaMenu2Open);
+  "
+  >
+  <ul class="header-nav__menu">
+    <li class="header-nav__item">
+      <a href="/solutions" class="header-nav__link header-nav__link--dropdown" @click.prevent="megaMenu1Open = !megaMenu1Open">
+        <span>Solutions</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+      </a>
+      <div class="header-nav__mega-menu" 
+        x-show="megaMenu1Open && !headerHidden" 
+        x-transition:enter="menu--enter"
+        x-transition:enter-start="menu--enter-start"
+        x-transition:enter-end="menu--enter-end"
+        x-transition:leave="menu--leave"
+        x-transition:leave-start="menu--leave-start"
+        x-transition:leave-end="menu--leave-end"
+        @click.away="megaMenu1Open = false"
+      >
+        <ul class="mega-menu__list">
+          <li class="mega-menu__item"><a href="/solutions/point-of-sale" class="mega-menu__link">Point of Sale</a></li>
+          <li class="mega-menu__item"><a href="/solutions/payment-processing" class="mega-menu__link">Payment Processing</a></li>
+          <li class="mega-menu__item"><a href="/solutions/customer-display" class="mega-menu__link">Customer Display</a></li>
+          <li class="mega-menu__item"><a href="/solutions/kitchen-display" class="mega-menu__link">Kitchen Display</a></li>
+          <li class="mega-menu__item"><a href="/solutions/order-manager" class="mega-menu__link">Order Manager</a></li>
+        </ul>
+        <ul class="mega-menu__list">
+          <li class="mega-menu__item"><a href="/solutions/kiosk" class="mega-menu__link">Kiosk</a></li>
+          <li class="mega-menu__item"><a href="/solutions/online-ordering" class="mega-menu__link">Online Ordering</a></li>
+          <li class="mega-menu__item"><a href="/solutions/qr-ordering" class="mega-menu__link">QR Ordering</a></li>
+          <li class="mega-menu__item"><a href="/solutions/loyalty" class="mega-menu__link">Loyalty</a></li>
+          <li class="mega-menu__item"><a href="/solutions/insights" class="mega-menu__link">Insights</a></li>
+        </ul>
+        <div class="mega-menu__features">
+          <div class="mega-menu__feature">
+            <img src="" alt="Feature Image" class="mega-menu__feature-image" />
+            <div class="mega-menu__feature-content">
+              <div class="mega-menu__tag">Featured</div>
+              <h3 class="mega-menu__feature-title">Your POS, built to serve</h3>
+              <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
+            </div>
+          </div>
+          <div class="mega-menu__feature">
+            <img src="" alt="Feature Image" class="mega-menu__feature-image" />
+            <div class="mega-menu__feature-content">
+              <div class="mega-menu__tag">New</div>
+              <h3 class="mega-menu__feature-title">Something else</h3>
+              <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="header-nav__item">
+      <a href="/business-types" class="header-nav__link header-nav__link--dropdown" @click.prevent="megaMenu2Open = !megaMenu2Open">
+        <span>Business Types</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+      </a>
+      <div class="header-nav__mega-menu" 
+        x-show="megaMenu2Open && !headerHidden" 
+        x-transition:enter="menu--enter"
+        x-transition:enter-start="menu--enter-start"
+        x-transition:enter-end="menu--enter-end"
+        x-transition:leave="menu--leave"
+        x-transition:leave-start="menu--leave-start"
+        x-transition:leave-end="menu--leave-end"
+        @click.away="megaMenu2Open = false"
+        >
+        <ul class="mega-menu__list">
+          <li class="mega-menu__item"><a href="/business-types/cafes" class="mega-menu__link">Cafes</a></li>
+          <li class="mega-menu__item"><a href="/business-types/restaurants" class="mega-menu__link">Restaurants</a></li>
+          <li class="mega-menu__item"><a href="/business-types/bars-and-clubs" class="mega-menu__link">Bars & Clubs</a></li>
+          <li class="mega-menu__item"><a href="/business-types/hotels-and-pubs" class="mega-menu__link">Hotels & Pubs</a></li>
+        </ul>
+        <ul class="mega-menu__list">
+          <li class="mega-menu__item"><a href="/business-types/stadia-and-entertainment" class="mega-menu__link">Stadia & Entertainment</a></li>
+          <li class="mega-menu__item"><a href="/business-types/pizzerias" class="mega-menu__link">Pizzerias</a></li>
+          <li class="mega-menu__item"><a href="/business-types/quick-service" class="mega-menu__link">Quick Service</a></li>
+          <li class="mega-menu__item"><a href="/business-types/multi-location" class="mega-menu__link">Multi Location</a></li>
+        </ul>
+        <div class="mega-menu__features">
+          <a href="#" class="mega-menu__feature">
+            <img src="" alt="Feature Image" class="mega-menu__feature-image" />
+            <div class="mega-menu__feature-content">
+              <div class="mega-menu__tag">Featured</div>
+              <h3 class="mega-menu__feature-title">Your POS, built to serve</h3>
+              <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
+            </div>
+          </a>
+          <a href="#" class="mega-menu__feature">
+            <img src="" alt="Feature Image" class="mega-menu__feature-image" />
+            <div class="mega-menu__feature-content">
+              <div class="mega-menu__tag">New</div>
+              <h3 class="mega-menu__feature-title">Something else</h3>
+              <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
+            </div>
+          </a>
+        </div>
+      </div>      
+    </li>
+    <li class="header-nav__item">
+      <a href="/pricing" class="header-nav__link"><span>Pricing</span></a>
+    </li>    
+  </ul>
+  <div class="header-nav__actions">
+    <a href="/contact-sales" class="button header-nav__button">Contact Sales</a>
+  </div>
+  <div class="header-nav__menu-open">
+    <button class="header-nav__toggle-button" aria-label="Open mobile menu" @click="mobileMenuOpen = !mobileMenuOpen">
+      <svg width="24" height="18" viewBox="0 0 24 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.6666 15.4286L22.7011 15.429C23.4215 15.4466 24 16.0153 24 16.7143C24 17.4244 23.403 18 22.6666 18H1.33332C0.596941 18 3.29864e-07 17.4244 0 16.7143C0 16.0042 0.596941 15.4286 1.33332 15.4286H22.6666ZM22.6666 7.7143L22.7011 7.71471C23.4215 7.73231 24 8.30101 24 9C24 9.71008 23.403 10.2857 22.6666 10.2857H1.33332C0.596941 10.2857 1.64932e-07 9.71008 0 9C0 8.28992 0.596941 7.7143 1.33332 7.7143H22.6666ZM22.6666 0C23.403 0 24 0.575622 24 1.2857C24 1.99578 23.403 2.57141 22.6666 2.57141H1.33332C0.596941 2.57141 0 1.99578 0 1.2857C0 0.575622 0.596941 0 1.33332 0H22.6666Z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div 
+    class="header-nav__mobile-menu" 
+    x-show="mobileMenuOpen"
+    x-cloak
+    x-transition:enter="menu--enter"
+    x-transition:enter-start="menu--enter-start"
+    x-transition:enter-end="menu--enter-end"
+    x-transition:leave="menu--leave"
+    x-transition:leave-start="menu--leave-start"
+    x-transition:leave-end="menu--leave-end"
+    @click.away="mobileMenuOpen = false"
+    x-effect="
+      if (mobileMenuOpen) {
+        scrollPosition = window.scrollY;
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.classList.add('menu-open');
+      } else {
+        document.body.classList.remove('menu-open');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollPosition);
+      }
+    "
+  >
+    <div class="mobile-menu__close">
+      <button class="header-nav__toggle-button" aria-label="Close mobile menu" @click="mobileMenuOpen = !mobileMenuOpen">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.61 0.410048C12.1568 -0.136685 13.0432 -0.13668 13.5899 0.410048C14.1367 0.956779 14.1367 1.84321 13.5899 2.38995L8.97989 6.99999L13.5899 11.6101L13.6152 11.6359C14.1366 12.1844 14.1281 13.0518 13.5899 13.59C13.0432 14.1367 12.1568 14.1367 11.61 13.5899L6.99998 8.97989L2.38995 13.5899L2.36407 13.6152C1.81559 14.1365 0.948241 14.1282 0.410049 13.59C-0.136685 13.0432 -0.136681 12.1568 0.410049 11.6101L5.02007 6.99999L0.410049 2.38995L0.384816 2.36406C-0.136547 1.81558 -0.128139 0.948233 0.410049 0.410048C0.948237 -0.128137 1.81559 -0.136546 2.36407 0.384815L2.38995 0.410048L6.99998 5.02009L11.61 0.410048Z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-menu__logo">
+      <a href="/">
+        <svg width="115" height="30" viewBox="0 0 115 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M99.973 0C108.272 0 115 6.71573 115 15C115 23.2843 108.272 30 99.973 30C91.6738 30 84.946 23.2843 84.946 15C84.946 6.71573 91.6738 0 99.973 0ZM99.973 10.0413C97.2295 10.0413 95.0054 12.2614 95.0054 15C95.0054 17.7386 97.2295 19.9587 99.973 19.9587C102.717 19.9587 104.941 17.7386 104.941 15C104.941 12.2614 102.717 10.0413 99.973 10.0413ZM75.0108 0H82.4622C83.1481 0 83.7041 0.555019 83.7041 1.23967V28.7603C83.7041 29.445 83.1481 30 82.4622 30H75.0108C74.3249 30 73.7689 29.445 73.7689 28.7603V1.23967C73.7689 0.555019 74.3249 0 75.0108 0ZM52.6566 30C51.9707 30 51.4147 29.445 51.4147 28.7603V1.23967C51.4147 0.555019 51.9707 0 52.6566 0H60.108C60.7939 0 61.3499 0.555019 61.3499 1.23967V20.0826H71.2851C71.971 20.0826 72.527 20.6377 72.527 21.3223V28.7603C72.527 29.445 71.971 30 71.2851 30H52.6566ZM35.1458 0C43.445 0 50.1728 6.71573 50.1728 15C50.1728 23.2843 43.445 30 35.1458 30C31.2769 30 27.7495 28.5405 25.086 26.1431C22.4231 28.5406 18.8958 30 15.027 30C6.72782 30 0 23.2843 0 15C0 6.71573 6.72782 0 15.027 0C18.8959 0 22.4233 1.45945 25.0868 3.85691C27.7496 1.45941 31.277 0 35.1458 0ZM35.1458 10.0413C32.4023 10.0413 30.1782 12.2614 30.1782 15C30.1782 17.7386 32.4023 19.9587 35.1458 19.9587C37.8893 19.9587 40.1134 17.7386 40.1134 15C40.1134 12.2614 37.8893 10.0413 35.1458 10.0413ZM15.027 10.0413C12.2835 10.0413 10.0594 12.2614 10.0594 15C10.0594 17.7386 12.2835 19.9587 15.027 19.9587C17.7705 19.9587 19.9946 17.7386 19.9946 15C19.9946 12.2614 17.7705 10.0413 15.027 10.0413Z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="mobile-menu__content">
+      <div class="mobile-menu__menus">
+        <div class="mobile-menu__menu">
+          <h4 class="mobile-menu__menu-title">Solutions</h4>
+          <ul class="mobile-menu__list">
+            <li class="mobile-menu__item"><a href="/solutions/point-of-sale" class="mobile-menu__link">Point of Sale</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/payment-processing" class="mobile-menu__link">Payment Processing</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/customer-display" class="mobile-menu__link">Customer Display</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/kitchen-display" class="mobile-menu__link">Kitchen Display</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/order-manager" class="mobile-menu__link">Order Manager</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/kiosk" class="mobile-menu__link">Kiosk</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/online-ordering" class="mobile-menu__link">Online Ordering</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/qr-ordering" class="mobile-menu__link">QR Ordering</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/loyalty" class="mobile-menu__link">Loyalty</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/insights" class="mobile-menu__link">Insights</a></li>
+          </ul>
+        </div>
+        <div class="mobile-menu__menu">
+          <h4 class="mobile-menu__menu-title">Business Types</h4>
+          <ul class="mobile-menu__list">
+            <li class="mobile-menu__item"><a href="/business-types/cafes" class="mobile-menu__link">Cafes</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/restaurants" class="mobile-menu__link">Restaurants</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/bars-and-clubs" class="mobile-menu__link">Bars & Clubs</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/hotels-and-pubs" class="mobile-menu__link">Hotels & Pubs</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/stadia-and-entertainment" class="mobile-menu__link">Stadia & Entertainment</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/pizzerias" class="mobile-menu__link">Pizzerias</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/quick-service" class="mobile-menu__link">Quick Service</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/multi-location" class="mobile-menu__link">Multi Location</a></li>
+          </ul>
+        </div>
+        <div class="mobile-menu__menu">
+          <h4 class="mobile-menu__menu-title">Resources</h4>
+          <ul class="mobile-menu__list">
+            <li class="mobile-menu__item"><a href="/about" class="mobile-menu__link">About</a></li>
+            <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Careers</a></li>
+            <li class="mobile-menu__item"><a href="/customers" class="mobile-menu__link">Customers</a></li>
+            <li class="mobile-menu__item"><a href="/blog" class="mobile-menu__link">Blog</a></li>
+            <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Help Guides</a></li>
+          </ul>
+        </div>
+      </div>
+      <a href="#" class="mobile-menu__feature">
+        <img src="" alt="Feature Image" class="mobile-menu__feature-image" />
+        <div class="mobile-menu__feature-content">
+          <div class="mobile-menu__tag">Featured</div>
+          <h3 class="mobile-menu__feature-title">Your POS, built to serve</h3>
+          <p class="mobile-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
+        </div>
+      </a>
+    </div>
+    <div class="mobile-menu__actions">
+      <a href="/contact-sales" class="mobile-menu__button button button--button1">Contact Sales</a>
+      <a href="/support" class="mobile-menu__button button button--button2">Support</a>
+    </div>    
+  </div>
+</nav>

@@ -36,3 +36,61 @@
     }
   {% endfor %}
 }
+
+[x-cloak] {
+  display: none !important;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #CCC;
+}
+
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.body-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.body-container-wrapper {
+  flex: 1 0 auto;
+  background-color: #666;
+  border-radius: 16px;
+}
+
+.content-wrapper {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 1380px) {
+  .content-wrapper {
+    padding: 0;
+  }
+}
+
+.dnd-section > .row-fluid {
+  margin: 0 auto;
+}
+
+.dnd-section .dnd-column {
+  padding: 0 1rem;
+}
+
+@media (max-width: 767px) {
+  .dnd-section .dnd-column {
+    padding: 0;
+  }
+}

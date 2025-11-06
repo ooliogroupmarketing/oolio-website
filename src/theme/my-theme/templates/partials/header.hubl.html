@@ -3,222 +3,27 @@
   label: Website header
 -->
 
-{% macro add_lang_switcher() %}
-  {% if get_asset_version('@hubspot/language_switcher') == 1 %}
-    {% module "language-switcher"
-      path="@hubspot/language_switcher",
-      label="Language switcher",
-      display_mode="localized"
-      styles={
-        "group_button" : {
-          "group_alignment" : {
-            "alignment" : {
-              "horizontal_align" : "RIGHT"
-            }
-          },
-          "group_background" : {
-            "color" : {
-              "color" : "#000000",
-              "opacity" : 0
-            }
-          },
-          "group_border" : {
-            "border" : {
-              "bottom" : {
-                "style" : "none"
-              },
-              "left" : {
-                "style" : "none"
-              },
-              "right" : {
-                "style" : "none"
-              },
-              "top" : {
-                "style" : "none"
-              }
-            }
-          },
-          "group_chevron" : {
-            "color" : {
-              "color" : "#516d8d",
-              "opacity" : 100
-            },
-            "size" : 10,
-            "spacing" : 10
-          },
-          "group_corner" : {
-            "radius" : 0
-          },
-          "group_icon" : {
-            "color" : {
-              "color" : "#516d8d",
-              "opacity" : 100
-            },
-            "size" : 15,
-            "spacing" : 10
-          },
-          "group_spacing" : {
-            "spacing" : {
-              "padding" : {
-                "bottom" : {
-                  "units" : "px",
-                  "value" : 7
-                },
-                "left" : {
-                  "units" : "px",
-                  "value" : 15
-                },
-                "right" : {
-                  "units" : "px",
-                  "value" : 15
-                },
-                "top" : {
-                  "units" : "px",
-                  "value" : 7
-                }
-              }
-            }
-          },
-          "group_text" : {
-            "font" : {
-              "color" : "#516d8d",
-              "size" : 18,
-              "size_unit" : "px"
-            }
-          }
-        },
-        "group_dropdown" : {
-          "group_border" : {
-            "border" : {
-              "bottom" : {
-                "color" : "#000000",
-                "opacity" : 100,
-                "style" : "none",
-                "width" : {
-                  "units" : "px",
-                  "value" : 1
-                }
-              },
-              "left" : {
-                "color" : "#000000",
-                "opacity" : 100,
-                "style" : "none",
-                "width" : {
-                  "units" : "px",
-                  "value" : 1
-                }
-              },
-              "right" : {
-                "color" : "#000000",
-                "opacity" : 100,
-                "style" : "none",
-                "width" : {
-                  "units" : "px",
-                  "value" : 1
-                }
-              },
-              "top" : {
-                "color" : "#000000",
-                "opacity" : 100,
-                "style" : "none",
-                "width" : {
-                  "units" : "px",
-                  "value" : 1
-                }
-              }
-            }
-          },
-          "group_box_shadow" : {
-            "add_box_shadow" : true
-          },
-          "group_hover" : {
-            "group_background" : {
-              "color" : {
-                "color" : "#f8fafc",
-                "opacity" : 100
-              }
-            }
-          },
-          "group_text" : {
-            "font" : {
-              "color" : "#516d8d",
-              "size" : 16,
-              "size_unit" : "px"
-            }
-          }
-        }
-      },
-      add_chevron_down=true,
-      icon_options="icon"
-    %}
-  {% else %}
-    {% module "language-switcher"
-      path="@hubspot/language_switcher",
-      label="Language switcher",
-      display_mode="localized"
-    %}
-    <div class="header__language-switcher--label-current"> {{ locale_name(locale) }}</div>
-  {% endif %}
-{% endmacro %}
 <header class="header">
 
   {# The link below is used for a navigation skipper which allows users navigating the site with their keyboard to skip over the site navigation. More information on the navigation skipper can be found here: https://github.com/HubSpot/cms-theme-boilerplate/wiki/Accessibility #}
-
   <a href="#main-content" class="header__skip">Skip to content</a>
 
-  {# Main header #}
+  <div class="header__container">
 
-  <div class="header__container content-wrapper">
-
-    {# Header logo column #}
-
-    <div class="header__logo header__logo--main">
-      {% module "site_logo"
-        path="@hubspot/logo"
-        img={
-          "loading": "eager"
-        }
-      %}
+    {# Header logo #}
+    <div class="header__logo">
+      <a href="/">
+        <svg width="115" height="30" viewBox="0 0 115 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M99.973 0C108.272 0 115 6.71573 115 15C115 23.2843 108.272 30 99.973 30C91.6738 30 84.946 23.2843 84.946 15C84.946 6.71573 91.6738 0 99.973 0ZM99.973 10.0413C97.2295 10.0413 95.0054 12.2614 95.0054 15C95.0054 17.7386 97.2295 19.9587 99.973 19.9587C102.717 19.9587 104.941 17.7386 104.941 15C104.941 12.2614 102.717 10.0413 99.973 10.0413ZM75.0108 0H82.4622C83.1481 0 83.7041 0.555019 83.7041 1.23967V28.7603C83.7041 29.445 83.1481 30 82.4622 30H75.0108C74.3249 30 73.7689 29.445 73.7689 28.7603V1.23967C73.7689 0.555019 74.3249 0 75.0108 0ZM52.6566 30C51.9707 30 51.4147 29.445 51.4147 28.7603V1.23967C51.4147 0.555019 51.9707 0 52.6566 0H60.108C60.7939 0 61.3499 0.555019 61.3499 1.23967V20.0826H71.2851C71.971 20.0826 72.527 20.6377 72.527 21.3223V28.7603C72.527 29.445 71.971 30 71.2851 30H52.6566ZM35.1458 0C43.445 0 50.1728 6.71573 50.1728 15C50.1728 23.2843 43.445 30 35.1458 30C31.2769 30 27.7495 28.5405 25.086 26.1431C22.4231 28.5406 18.8958 30 15.027 30C6.72782 30 0 23.2843 0 15C0 6.71573 6.72782 0 15.027 0C18.8959 0 22.4233 1.45945 25.0868 3.85691C27.7496 1.45941 31.277 0 35.1458 0ZM35.1458 10.0413C32.4023 10.0413 30.1782 12.2614 30.1782 15C30.1782 17.7386 32.4023 19.9587 35.1458 19.9587C37.8893 19.9587 40.1134 17.7386 40.1134 15C40.1134 12.2614 37.8893 10.0413 35.1458 10.0413ZM15.027 10.0413C12.2835 10.0413 10.0594 12.2614 10.0594 15C10.0594 17.7386 12.2835 19.9587 15.027 19.9587C17.7705 19.9587 19.9946 17.7386 19.9946 15C19.9946 12.2614 17.7705 10.0413 15.027 10.0413Z"/>
+        </svg>
+      </a>
     </div>
 
-    {# Header navigation column #}
-
-    <div class="header__column">
-
-      {# Header navigation row one #}
-
-      <div class="header__row-1">
-        {% if content.translated_content.values()|selectattr("published")|length or is_listing_view and group.translations %}
-          <div class="header__language-switcher header--element">
-            <div class="header__language-switcher--label">
-              {{ add_lang_switcher() }}
-            </div>
-          </div>
-        {% endif %}
-        <div class="header__search header--element">
-          {% module "site_search"
-            path="@hubspot/search_input",
-            label="Search",
-            field_label="Search",
-            placeholder=""
-          %}
-        </div>
-      </div>
-
-      {# Header navigation row two #}
-
-      <div class="header__row-2">
-        <div class="header--toggle header__navigation--toggle"></div>
-        {% if content.translated_content|length or is_listing_view and group.translations %}
-          <div class="header--toggle header__language-switcher--toggle"></div>
-        {% endif %}
-        <div class="header--toggle header__search--toggle"></div>
-        <div class="header__close--toggle"></div>
-        <div class="header__navigation header--element">
-          menu module placeholder
-        </div>
-      </div>
-
+    {# Header navigation #}
+    <div class="header__navigation">
+      {% module "header_navigation"
+        path="../../hubl-modules/header-nav.module"
+      %}
     </div>
 
   </div>

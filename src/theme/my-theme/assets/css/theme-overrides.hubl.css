@@ -195,7 +195,7 @@ a {
 
 a:hover,
 a:focus {
-  {{ anchor_font.style }};
+  /* {{ anchor_font.style }}; */
   color: {{ color_variant(anchor_font.color, -40) }};
 }
 
@@ -466,7 +466,7 @@ tfoot td {
 {###########################################################################}
 
 .header {
-  background-color: {{ header_bg_color }};
+  /* background-color: {{ header_bg_color }}; */
 }
 
 .menu__link,
@@ -556,7 +556,7 @@ tfoot td {
 
 @media(max-width: 767px) {
   .header__navigation {
-    background-color: {{ header_bg_color }};
+    /* background-color: {{ header_bg_color }}; */
   }
 
   .header__navigation-toggle svg,
@@ -570,7 +570,7 @@ tfoot td {
 {###########################################################################}
 
 .footer {
-  background-color: {{ footer_bg_color }};
+  /* background-color: {{ footer_bg_color }}; */
 }
 
 /* Footer content */
