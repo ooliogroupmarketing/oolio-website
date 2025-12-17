@@ -1,0 +1,333 @@
+[
+  {
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  },
+  {
+    "type": "richtext",
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Lorem ipsum dolor sit amet</h2>\n<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p><p>Duis convallis felis dui, nec tempor turpis auctor ut. Ut non justo in ligula faucibus auctor. Praesent non pharetra odio. Quisque dapibus lorem at justo auctor interdum.</p>\n<p><strong>Suspendisse et est quis odio auctor finibus ut ac quam</strong>.</p>"
+  },
+  {
+    "type": "group",
+    "id": "buttons",
+    "label": "Buttons",
+    "children": [
+      {
+        "type": "link",
+        "id": "buttons.button_link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG",
+          "CALL_TO_ACTION",
+          "PHONE_NUMBER"
+        ],
+        "label": "Button link",
+        "name": "button_link"
+      },
+      {
+        "type": "text",
+        "id": "buttons.button_text",
+        "validation_regex": "",
+        "label": "Button text",
+        "name": "button_text",
+        "default": "Button text"
+      }
+    ],
+    "name": "buttons",
+    "default": [
+    {
+      "button_link": {
+      "url": {
+        "content_id": null,
+        "href": "",
+        "type": "CONTENT"
+      },
+      "open_in_new_tab": false,
+      "no_follow": false
+      },
+      "button_text": "Button text"
+    }
+    ],
+    "occurrence": {
+      "max": 2,
+      "default": 1,
+      "sorting_label_field": "buttons.button_text"
+    }
+  },
+  {
+    "type": "group",
+    "id": "boxes",
+    "label": "Boxes",
+    "children": [
+      {
+        "type": "choice",
+        "id": "boxes.box_content_type",
+        "display": "radio",
+        "choices": [
+          ["image", "Image"],
+          ["customer_quote", "Customer quote"]
+        ],
+        "label": "Box content type",
+        "name": "box_content_type",
+        "default": "image",
+        "required": true
+      },
+      {
+        "type": "image",
+        "id": "boxes.box_image",
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false,
+        "label": "Image",
+        "name": "box_image",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "boxes.box_content_type",
+          "controlling_value_regex": "image"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "boxes.quote",
+        "label": "Quote",
+        "name": "quote",
+        "visibility": {
+          "controlling_field_path": "boxes.box_content_type",
+          "operator": "EQUAL",
+          "controlling_value_regex": "customer_quote"
+        },
+        "default": "<p>\"Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis.\"</p>"
+      },
+      {
+        "type": "text",
+        "id": "boxes.quote_by_name",
+        "validation_regex": "",
+        "label": "Quote by name",
+        "name": "quote_by_name",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "boxes.box_content_type",
+          "controlling_value_regex": "customer_quote"
+        },
+        "default": "John Smith"
+      },
+      {
+        "type": "text",
+        "id": "boxes.quote_by_company",
+        "validation_regex": "",
+        "label": "Quote by company",
+        "name": "quote_by_company",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "boxes.box_content_type",
+          "controlling_value_regex": "customer_quote"
+        },
+        "default": "Venue Co"
+      }
+    ],
+    "name": "boxes",
+    "default": [
+    {
+      "box_content_type": "image",
+      "box_image": {
+      "size_type": "auto",
+      "src": "",
+      "alt": null,
+      "loading": "lazy"
+      },
+      "quote": "",
+      "quote_by_name": "",
+      "quote_by_company": ""
+    },
+    {
+      "box_content_type": "image",
+      "box_image": {
+      "size_type": "auto",
+      "src": "",
+      "alt": null,
+      "loading": "lazy"
+      },
+      "quote": "",
+      "quote_by_name": "",
+      "quote_by_company": ""
+    },
+    {
+      "box_content_type": "customer_quote",
+      "box_image": {
+      "size_type": "auto",
+      "src": "",
+      "alt": null,
+      "loading": "lazy"
+      },
+      "quote": "<p>\"Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis.\"</p>",
+      "quote_by_name": "John Smith",
+      "quote_by_company": "Venue Co"
+    }
+    ],
+    "occurrence": {
+    "default": 3
+    }
+  },  
+  {
+    "type": "group",
+    "isNew": false,
+    "name": "style",
+    "label": "Style",
+    "tab": "STYLE",
+    "id": "style",
+    "children": [
+      {
+        "type": "group",
+        "id": "style.body_text",
+        "label": "Body text",
+        "children": [
+          {
+            "name": "use_ticks",
+            "label": "Use ticks for bullet points",
+            "required": false,
+            "locked": false,
+            "type": "boolean",
+            "display": "checkbox",
+            "help_text": "Shows ticks for bullet points when enabled",
+            "default": false
+          }
+        ],
+        "name": "body_text",
+        "default": {
+          "use_ticks": false
+        }
+      },
+      {
+        "type": "group",
+        "id": "style.buttons",
+        "label": "Buttons",
+        "children": [
+          {
+            "type": "choice",
+            "id": "style.buttons.button_1_style",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 1 style",
+            "name": "button_1_style",
+            "default": "button--button2"
+          },
+          {
+            "type": "choice",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 2 style",
+            "name": "button_2_style",
+            "default": "button--button1",
+            "id": "style.buttons.button_2_style"
+          }
+        ],
+        "name": "buttons",
+        "default": {
+          "button_1_style": "button--button2",
+          "button_2_style": "button--button1"
+        }
+      },      
+      {
+        "type": "group",
+        "id": "style.boxes",
+        "label": "Boxes",
+        "children": [
+          {
+            "type": "alignment",
+            "id": "style.boxes.boxes_alignment",
+            "label": "Boxes alignment",
+            "name": "boxes_alignment",
+            "default": {
+              "horizontal_align": "LEFT"
+            },
+            "alignment_direction": "HORIZONTAL",
+            "locked": false,
+            "required": false
+          }
+        ],
+        "name": "boxes",
+        "default": {
+          "boxes_alignment": {
+            "horizontal_align": "LEFT"
+          }
+        }
+      },
+      {
+        "type": "group",
+        "id": "style.quote",
+        "label": "Quote",
+        "children": [
+          {
+            "type": "choice",
+            "id": "style.quote.background_gradient",
+            "display": "select",
+            "choices": [
+              ["background--gradient1", "Background gradient 1"],
+              ["background--gradient2", "Background gradient 2"],
+              ["background--gradient3", "Background gradient 3"],
+              ["background--gradient4", "Background gradient 4"]
+            ],
+            "label": "Background gradient",
+            "name": "background_gradient",
+            "default": "background--gradient1"
+          }
+        ],
+        "name": "quote",
+        "default": {
+          "background_gradient": "background--gradient1"
+        }
+      }
+    ],
+    "default": {
+      "boxes": {
+        "boxes_alignment": {
+          "horizontal_align": "LEFT"
+        }
+      },
+      "quote": {
+        "quote_gradient_background": {
+          "background_gradient": "background--gradient1"
+        }
+      },
+      "buttons": {
+        "button_1_style": "button--button2",
+        "button_2_style": "button--button1"
+      }
+    }
+  }
+]

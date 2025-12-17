@@ -1,11 +1,118 @@
 [
   {
-    "name": "rich_text",
-    "label": "Rich Text",
-    "required": false,
-    "locked": false,
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  },
+  {
     "type": "richtext",
-    "default": "<p>Example Hubl Module</p>"
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Lorem ipsum dolor sit amet</h2>"
+  },
+  {
+    "type": "group",
+    "id": "logos",
+    "label": "Logos",
+    "children": [
+      {
+        "type": "image",
+        "id": "logos.logo_image",
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false,
+        "label": "Image",
+        "name": "logo_image"
+      }
+    ],
+    "name": "logos",
+    "default": [
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-royalstacks.png",
+          "alt": "Royal Stacks logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-mogumogu.png",
+          "alt": "Mogumogu logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-silkspoon.png",
+          "alt": "Silk Spoon logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-gracieswineroom.png",
+          "alt": "Gracies Wine Room logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-meatflourwine.png",
+          "alt": "Meat Flour Wine logo",
+          "loading": "lazy"
+        }
+      },        
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-loaf.png",
+          "alt": "Loaf logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-royalstacks.png",
+          "alt": "Royal Stacks logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-mogumogu.png",
+          "alt": "Mogumogu logo",
+          "loading": "lazy"
+        }
+      },
+      {
+        "logo_image": {
+          "size_type": "auto",
+          "src": "https://5205495.fs1.hubspotusercontent-na1.net/hubfs/5205495/oolio-website/logoblack-silkspoon.png",
+          "alt": "Silk Spoon logo",
+          "loading": "lazy"
+        }
+      }
+    ],
+    "occurrence": {
+      "default": 9
+    }
   },  
   {
     "label": "Styles",
@@ -13,22 +120,6 @@
     "type": "group",
     "tab": "STYLE",
     "children": [
-      {
-        "label": "Background",
-        "name": "background",
-        "type": "group",
-        "children": [
-          {
-            "label": "Color",
-            "name": "color",
-            "type": "color",
-            "default": {
-              "color": null,
-              "opacity": 100
-            }
-          }
-        ]
-      }
     ]
   }
 ]

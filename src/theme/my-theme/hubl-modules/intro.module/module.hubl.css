@@ -1,0 +1,33 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+@media (min-width: 1024px) {
+  .intro {
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+  }
+  .intro__heading {
+    flex: 0 0 34%;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .intro__heading.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }  
+  .intro__body {
+    flex: 0 0 58%;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .intro__body.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }  
+}

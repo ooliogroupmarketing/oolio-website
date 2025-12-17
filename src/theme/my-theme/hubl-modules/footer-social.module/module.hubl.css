@@ -1,3 +1,23 @@
-.footer__social {
-  display: none;
+.social__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.social__item {
+
+}
+.social__link {
+  display: block;  
+}
+.social__icon {
+  color: #fff;
+}
+.social__icon svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
 }

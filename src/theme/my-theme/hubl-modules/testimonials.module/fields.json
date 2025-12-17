@@ -1,0 +1,151 @@
+[
+  {
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": "tag text"
+  },
+  {
+    "type": "richtext",
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Lorem ipsum dolor sit amet</h2>"
+  },
+  {
+    "type": "group",
+    "id": "testimonials",
+    "name": "testimonials",
+    "label": "Testimonials",
+    "children": [
+      {
+        
+        "type": "richtext",
+        "id": "testimonials.quote",
+        "validation_regex": "",
+        "label": "Quote",
+        "name": "quote",
+        "default": "<p>Praesent convallis facilisis ante sit amet placerat vitae tempus odio.</p>"
+      },
+      {
+        "type": "text",
+        "id": "testimonials.quote_by_name",
+        "validation_regex": "",
+        "label": "Quote by name",
+        "name": "quote_by_name",
+        "default": "John Smith"
+      },
+      {
+        "type": "text",
+        "id": "testimonials.quote_by_company",
+        "validation_regex": "",
+        "label": "Quote by company",
+        "name": "quote_by_company",
+        "default": "Venue Co"
+      },
+      {
+        "type": "image",
+        "id": "testimonials.photo",
+        "label": "Photo",
+        "name": "photo",        
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false
+      },
+      {
+        "type": "image",
+        "id": "testimonials.logo",
+        "label": "Logo",
+        "name": "logo",        
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false
+      }              
+    ],
+    "default": [
+      {
+        "quote": "<p>Praesent convallis facilisis ante sit amet placerat vitae tempus odio.</p>",
+        "quote_by_name": "John Smith",
+        "quote_by_company": "Venue Co",
+        "photo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "logo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        }                 
+      },
+      {
+        "quote": "<p>Praesent convallis facilisis ante sit amet placerat vitae tempus odio.</p><p>Vivamus ut sapien quis arcu eleifend mollis vitae nec erat. Proin imperdiet, urna eget dictum aliquam, enim odio luctus felis, suscipit imperdiet libero arcu quis sapien.</p>",
+        "quote_by_name": "John Smith",
+        "quote_by_company": "Venue Co",
+        "photo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "logo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        }                 
+      },
+      {
+        "quote": "<p>Praesent convallis facilisis ante sit amet placerat vitae tempus odio.</p>",
+        "quote_by_name": "John Smith",
+        "quote_by_company": "Venue Co",
+        "photo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "logo": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        }                 
+      }                           
+    ],
+    "occurrence": {
+      "default": 3
+    }
+  },  
+  {
+    "label": "Styles",
+    "name": "styles",
+    "type": "group",
+    "tab": "STYLE",
+    "children": [
+      {
+        "label": "Background",
+        "name": "background",
+        "type": "group",
+        "children": [
+        ]
+      }
+    ]
+  }
+]

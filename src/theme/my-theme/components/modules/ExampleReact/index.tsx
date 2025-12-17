@@ -45,5 +45,5 @@ export const fields = (
 );
 
 export const meta = {
-  label: 'Example React Module',
+  label: 'Example React Module'
 };

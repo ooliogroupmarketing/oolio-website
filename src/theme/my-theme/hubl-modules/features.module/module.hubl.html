@@ -1,0 +1,108 @@
+{# Module styles #}
+{% require_css %}
+  <style>
+    {% scope_css %}
+
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="features" x-data>
+  <div class="features__body" x-intersect.once="$el.classList.add('in-view')">
+    {% if module.tag %}
+      <span class="tag">{{ module.tag }}</span>
+    {% endif %}
+    {{ module.body_text }}
+  </div>
+  {% if module.styles.features.features_style == 'features__ticker' %}
+    <div class="features__wrapper features__wrapper--ticker">
+  {% else %}
+    <div class="features__wrapper features__wrapper--grid">
+  {% endif %}
+    {% if module.features_image.src %}
+      <div class="features__image">
+        <img src="{{ module.features_image.src }}?noresize" alt="{{ module.features_image.alt }}" width="{{ module.features_image.width }}" height="{{ module.features_image.height }}">
+      </div>
+    {% endif %}
+    {% if module.styles.features.features_style == 'features__ticker' %}
+    <div class="features__wrap">
+      <div class="features__container half-layout__container">
+    {% endif %}
+        <div
+          class="{{ module.styles.features.features_style }}"
+          {% if module.styles.features.features_style == 'features__ticker' %}
+            x-data="{
+              activeIndex: 0,
+              totalItems: {{ module.features|length }},
+              measureHeight() {
+                if (window.innerWidth < 1024) return;
+                const items = Array.from(this.$refs.ticker?.querySelectorAll('.features__ticker-item') || []);
+                if (!items.length) return;
+                const height = Math.max(...items.map((item) => item.offsetHeight));
+                this.$el.style.setProperty('--item-height', height + 'px');
+                const containerHeight = height * 3.5;
+                this.$el.style.minHeight = containerHeight + 'px';
+              },
+              itemClass(i) {
+                if (this.activeIndex === i) return 'features__ticker-item--active';
+                const prevIndex = (this.activeIndex - 1 + this.totalItems) % this.totalItems;
+                const nextIndex = (this.activeIndex + 1) % this.totalItems;
+                if (i === prevIndex) return 'features__ticker-item--prev';
+                if (i === nextIndex) return 'features__ticker-item--next';
+                const nextNextIndex = (this.activeIndex + 2) % this.totalItems;
+                if (i === nextNextIndex) return 'features__ticker-item--upcoming';
+                const prevPrevIndex = (this.activeIndex - 2 + this.totalItems) % this.totalItems;
+                if (i === prevPrevIndex) return 'features__ticker-item--done';
+                return '';
+              }
+            }"
+            x-init="
+              $nextTick(() => {
+                measureHeight();
+                if (window.innerWidth >= 1024) {
+                  if (!window.__featuresTickerInterval) {
+                    window.__featuresTickerInterval = setInterval(() => {
+                      activeIndex = (activeIndex + 1) % totalItems;
+                    }, 4000);
+                  }
+                }
+              });
+              window.addEventListener('resize', () => {
+                measureHeight();
+                if (window.innerWidth < 1024 && window.__featuresTickerInterval) {
+                  clearInterval(window.__featuresTickerInterval);
+                  window.__featuresTickerInterval = null;
+                } else if (window.innerWidth >= 1024 && !window.__featuresTickerInterval) {
+                  window.__featuresTickerInterval = setInterval(() => {
+                    activeIndex = (activeIndex + 1) % totalItems;
+                  }, 3000);
+                }
+              });
+            "
+            x-effect="measureHeight()"
+            x-ref="ticker"
+          {% else %}
+            x-data 
+            x-init="$el.classList.add('in-view')" 
+          {% endif %}
+        >
+          {% for item in module.features %}
+            <div 
+              {% if module.styles.features.features_style == 'features__ticker' %}
+                class="features__ticker-item"
+                :class="itemClass({{ loop.index0 }})"
+              {% else %}
+                class="features__grid-item"
+                x-intersect.once="$el.classList.add('in-view')"
+              {% endif %}
+            >
+              {{ item.feature_item }}
+            </div>
+          {% endfor %}
+        </div>
+    {% if module.styles.features.features_style == 'features__ticker' %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

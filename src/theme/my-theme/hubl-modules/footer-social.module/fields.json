@@ -1,2 +1,56 @@
 [
+  {
+    "id": "social_links",
+    "name": "social_links",
+    "label": "Social Links",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": null,
+      "max": null,
+      "sorting_label_field": "social_links.social_name",
+      "default": null
+    },
+    "children": [  
+      {
+        "name": "social_name",
+        "label": "Social Platform Name",
+        "required": false,
+        "locked": false,    
+        "type": "text",
+        "default": ""    
+      },
+      {
+        "name": "social_link",
+        "label": "Social Media URL",
+        "required": false,
+        "locked": false,
+        "supported_types": [
+          "EXTERNAL"
+        ],
+        "show_advanced_rel_options": true,
+        "type": "link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "type": "EXTERNAL",
+            "href": ""
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "help_text": "Full URL to your social media profile"
+      },
+      {
+        "name": "social_icon",
+        "label": "Icon",
+        "required": false,
+        "locked": false,
+        "icon_set": "fontawesome-6.4.2",
+        "type": "icon",
+        "help_text": "Choose an icon that represents this social media platform"    
+      }
+    ],
+    "type": "group"
+  }
 ]

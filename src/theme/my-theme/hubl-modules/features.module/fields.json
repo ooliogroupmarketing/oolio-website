@@ -1,0 +1,103 @@
+[
+  {
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  },
+  {
+    "type": "richtext",
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Lorem ipsum dolor sit amet</h2>"
+  },
+  {
+    "type": "image",
+    "id": "features_image",
+    "label": "Features image",
+    "name": "features_image",
+    "default": {
+      "size_type": "auto",
+      "src": "",
+      "alt": null,
+      "loading": "lazy"
+    },
+    "resizable": false,
+    "responsive": true,
+    "show_loading": false
+  },  
+  {
+    "type": "group",
+    "id": "features",
+    "label": "Features",
+    "children": [
+      {
+        
+        "type": "richtext",
+        "id": "features.feature_item",
+        "validation_regex": "",
+        "label": "Feature Item",
+        "name": "feature_item",
+        "default": "<p><strong>Praesent convallis facilisis</strong> ante sit amet placerat vitae tempus odio.</p>"
+      }
+    ],
+    "name": "features",
+    "default": [
+      {
+        "feature_item": "<p><strong>Praesent convallis facilisis</strong> ante sit amet placerat vitae tempus odio.</p>"
+      },
+      {
+        "feature_item": "<p><strong>Donec vulputate</strong> mollis erat eu tristique.</p>"
+      },
+      {
+        "feature_item": "<p><strong>Maecenas accumsan</strong> nisl ut vulputate ultrices nunc gravida.</p>"
+      },
+      {
+        "feature_item": "<p><strong>Donec vulputate</strong> mollis erat eu tristique.</p>"
+      },
+      {
+        "feature_item": "<p><strong>Maecenas accumsan</strong> nisl ut vulputate ultrices nunc gravida.</p>"
+      },
+      {
+        "feature_item": "<p><strong>Praesent convallis facilisis</strong> ante sit amet placerat vitae tempus odio.</p>"
+      }                              
+    ],
+    "occurrence": {
+      "default": 6
+    }
+  },  
+  {
+    "label": "Styles",
+    "name": "styles",
+    "type": "group",
+    "tab": "STYLE",
+    "children": [
+      {
+        "type": "group",
+        "id": "style.features",
+        "label": "Features",
+        "children": [
+          {
+            "type": "choice",
+            "id": "style.features.features_style",
+            "display": "select",
+            "choices": [
+              ["features__grid", "Grid"],
+              ["features__ticker", "Vertical ticker"]
+            ],
+            "label": "Features style",
+            "name": "features_style",
+            "default": "features__grid"
+          }
+        ],
+        "name": "features",
+        "default": {
+          "features_style": "features__grid"
+        }
+      }      
+    ]
+  }
+]

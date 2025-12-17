@@ -1,7 +1,7 @@
 /* The overflow-wrap is meant to prevent long/large words from breaking the mobile responsiveness of a page (e.g. horizontal scrolling). It is preferred to reduce font sizes on mobile to address this, with this CSS specifically helping with extreme scenarios where a reduction in font size is not possible. */
 
 body {
-  line-height: 1.4;
+  line-height: 1.6;
   overflow-wrap: break-word;
   letter-spacing: -0.02em;
 }
@@ -19,8 +19,7 @@ html[lang^="ko"] body {
 /* Paragraphs */
 
 p {
-  font-size: 1rem;
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.5rem;
 }
 
 /* Anchors */
@@ -37,14 +36,38 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.5rem;
 }
 
 /* Lists */
 
 ul,
 ol {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.5rem;
+  padding-left: 2rem;
+}
+.list-ticks ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+.list-ticks ul li {
+  margin-left: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;  
+}
+
+.list-ticks ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4CAF4F;
+  font-weight: bold;
+  font-size: 1em;
 }
 
 ul ul,
@@ -60,6 +83,15 @@ ul.no-list {
   padding-left: 0;
 }
 
+ul.no-list li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+ul.no-list li::before {
+  content: none;
+}
+
 /* Code blocks */
 
 pre {
@@ -73,9 +105,7 @@ code {
 /* Blockquotes */
 
 blockquote {
-  border-left: 2px solid;
-  margin: 0 0 1.4rem;
-  padding-left: 0.7rem;
+  margin: 0;
 }
 
 /* Horizontal rules */

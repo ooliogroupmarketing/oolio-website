@@ -1,3 +1,12 @@
 {
-  "label": "oolio-website-theme"
+  "label": "oolio-website-theme",
+  "responsive_breakpoints": [
+    {
+      "name": "mobile",
+      "mediaQuery": "@media (max-width: 767px)",
+      "previewWidth": {
+        "value": 520
+      }
+    }
+  ]  
 }

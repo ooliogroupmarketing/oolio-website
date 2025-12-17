@@ -1,0 +1,17 @@
+[
+ {
+  "type": "text",
+  "id": "intro_heading",
+  "validation_regex": "",
+  "label": "Intro heading",
+  "name": "intro_heading",
+  "default": "Nunc finibus felis sed pulvinar blandit"
+ },
+ {
+  "type": "richtext",
+  "id": "intro_body",
+  "label": "Intro body",
+  "name": "intro_body",
+  "default": "<p><strong>Aliquam ultricies metus quis rhoncus ultricies.</strong> Vivamus ut sapien quis arcu eleifend mollis vitae nec erat. Proin imperdiet, urna eget dictum aliquam, enim odio luctus felis, suscipit imperdiet libero arcu quis sapien. Suspendisse nec pulvinar sem. Donec tincidunt nunc ut euismod gravida. Nulla id felis ex.</p>"
+ }
+]

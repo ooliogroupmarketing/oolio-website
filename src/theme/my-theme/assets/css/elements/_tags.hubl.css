@@ -1,0 +1,12 @@
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 40px;
+  background-color: #222;
+  color: #fff;
+  line-height: 1;
+  margin: 0 0 10px 0;
+}

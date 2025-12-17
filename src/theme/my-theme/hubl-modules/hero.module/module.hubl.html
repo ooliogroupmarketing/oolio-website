@@ -1,3 +1,45 @@
+{# Buttons macro #}
+{% macro buttons(items, button1_style, button2_style) %}
+
+  {% macro render_button(item) %}
+
+    {% set href = item.button_link.url.href %}
+    {% if item.button_link.url.type == "EXTERNAL" %}
+      {% if href is not string_startingwith("tel:") %}
+        {% set href = href|escape_url %}
+      {% endif %}
+    {% endif %}
+    {% if item.button_link.url.type == "PHONE_NUMBER" %}
+      {% set href = "tel:" + href %}
+    {% endif %}
+    {% if item.button_link.url.type == "EMAIL_ADDRESS" %}
+      {% set href = "mailto:" + href %}
+    {% endif %}    
+    {% set rel = [] %}
+    {% if item.button_link.no_follow %}
+      {% do rel.append("nofollow") %}
+    {% endif %}
+    {% if item.button_link.open_in_new_tab %}
+      {% do rel.append("noopener") %}
+    {% endif %}    
+      <a
+        class="button
+        {% if loop.index == 1 %}{{ button1_style }}{% endif %}
+        {% if loop.index == 2 %}{{ button2_style }}{% endif %}"
+        href="{{ href }}"
+        {% if item.link.open_in_new_tab %}target="_blank"{% endif %}
+        {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+      >
+        <span>{{ item.button_text }}</span>
+      </a>
+  {% endmacro %}
+
+  {% for item in items %}
+    {{ render_button(item) }}
+  {% endfor %}
+
+{% endmacro %}
+
 {# Module styles #}
 {% require_css %}
   <style>
@@ -6,3 +48,37 @@
     {% end_scope_css %}
   </style>
 {% end_require_css %}
+
+<div class="hero">
+  {# Background video (decorative) - autoplay, muted, looped, playsinline #}
+  <video
+    class="hero__bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-hidden="true"
+    tabindex="-1"
+    {% if module.background_image_fallback.src %}
+      poster="{{ module.background_image_fallback.src }}"
+    {% endif %}
+  >
+    {% if module.background_video_file %}
+      <source src="{{ module.background_video_file }}" type="video/mp4">
+    {% endif %}
+  </video>
+  <div class="hero__bg-overlay"></div>
+  <div class="hero__container" x-data>
+    <div class="hero__body" x-intersect.once="$el.classList.add('in-view')">
+      {% if module.hero_heading %}
+        <h1>{{ module.hero_heading }}</h1>
+      {% endif %}      
+      {{ module.hero_body }}
+    </div>
+    {% if module.buttons is iterable and module.buttons|length > 0 %}
+      <div class="hero__actions" x-intersect.once="$el.classList.add('in-view')">
+        {{ buttons(module.buttons, module.style.buttons.button_1_style, module.style.buttons.button_2_style) }}
+      </div>
+    {% endif %}    
+  </div>
+</div>

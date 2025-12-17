@@ -1,0 +1,113 @@
+{# Module styles #}
+{% require_css %}
+  <style>
+    {% scope_css %}
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="testimonials" x-data="{ 
+  current: 0,
+  count: {{ module.testimonials|length }},
+  direction: 'next',
+  startX: 0,
+  endX: 0,
+  isDragging: false,
+  resizeTimeout: null,
+  updateHeights() {
+    const quotes = this.$el.querySelectorAll('.testimonial__quote');
+    let maxHeight = 0;
+    quotes.forEach(quote => {
+      quote.style.height = 'auto';
+      const height = quote.offsetHeight;
+      if (height > maxHeight) maxHeight = height;
+    });
+    quotes.forEach(quote => {
+      quote.style.height = maxHeight + 'px';
+    });
+  },
+  init() {
+    this.$nextTick(() => {
+      this.updateHeights();
+    });
+    window.addEventListener('resize', () => {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = setTimeout(() => {
+        this.updateHeights();
+      }, 150);
+    });
+  },
+  next() { this.direction = 'next'; this.current = (this.current + 1) % this.count },
+  prev() { this.direction = 'prev'; this.current = (this.current - 1 + this.count) % this.count },
+  handleStart(e) { 
+    this.startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    this.isDragging = true;
+  },
+  handleMove(e) { 
+    if (!this.isDragging) return;
+    this.endX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  },
+  handleEnd() {
+    if (!this.isDragging) return;
+    if (this.startX - this.endX > 50) { this.next() }
+    if (this.endX - this.startX > 50) { this.prev() }
+    this.startX = 0;
+    this.endX = 0;
+    this.isDragging = false;
+  }
+}">
+  <div class="testimonials__header content-wrapper">
+    <div class="testimonials__body" x-intersect.once="$el.classList.add('in-view')">
+      {% if module.tag %}
+        <span class="tag">{{ module.tag }}</span>
+      {% endif %}
+      {{ module.body_text }}
+    </div> 
+    <div class="testimonials__controls" x-show="count > 1" x-intersect.once="$el.classList.add('in-view')">
+      <button type="button" class="testimonials__button testimonials__button--prev" @click="prev()" aria-label="Previous testimonial">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="testimonials__button testimonials__button--next" @click="next()" aria-label="Next testimonial">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="testimonials__carousel" role="region" aria-label="Testimonials carousel" tabindex="0" x-intersect.once="$el.classList.add('in-view')" @keydown.left.prevent="prev()" @keydown.right.prevent="next()" @mousedown.prevent="handleStart($event)" @mousemove="handleMove($event)" @mouseup="handleEnd()" @mouseleave="handleEnd()" @touchstart="handleStart($event)" @touchmove="handleMove($event)" @touchend="handleEnd()">
+    <div class="testimonials__slides" :style="`transform: translateX(-${current * 100}%)`">
+    {% for testimonial in module.testimonials %}
+      <div class="testimonial" :aria-hidden="current !== {{ loop.index0 }}">
+        <div class="testimonial__quote" itemscope itemtype="https://schema.org/Review">
+          <blockquote itemprop="reviewBody">
+            {{ testimonial.quote }}
+          </blockquote>
+          {% if testimonial.quote_by_name %}
+            <footer>
+              <cite>
+                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <span itemprop="name">{{ testimonial.quote_by_name }}</span>{% if testimonial.quote_by_company %},<span itemprop="affiliation" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">{{ testimonial.quote_by_company }}</span></span>{% endif %}
+                </span>
+              </cite>
+            </footer>
+          {% endif %}
+        </div>
+        <div class="testimonial__media">
+          {% if testimonial.photo.src %}
+            <img class="testimonial__photo" src="{{ testimonial.photo.src }}?noresize" alt="{{ testimonial.photo.alt }}" width="{{ testimonial.photo.width }}" height="{{ testimonial.photo.height }}">
+          {% endif %}
+          {% if testimonial.logo.src %}
+            <div class="testimonial__logo">
+              <div class="testimonial__logo-box">
+                <img src="{{ testimonial.logo.src }}?noresize" alt="{{ testimonial.logo.alt }}" width="{{ testimonial.logo.width }}" height="{{ testimonial.logo.height }}">
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>

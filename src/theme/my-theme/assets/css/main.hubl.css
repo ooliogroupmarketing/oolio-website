@@ -19,6 +19,7 @@ Base HTML elements are styled in this section (<body>, <h1>, <a>, <p>, <button> 
 {% include './elements/_layout.hubl.css' %}
 {% include './elements/_typography.hubl.css' %}
 {% include './elements/_buttons.hubl.css' %}
+{% include './elements/_tags.hubl.css' %}
 {% include './elements/_forms.hubl.css' %}
 {% include './elements/_tables.hubl.css' %}
 

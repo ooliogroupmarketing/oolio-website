@@ -1,0 +1,19 @@
+{# Module styles #}
+{% require_css %}
+  <style>
+    {% scope_css %}
+
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="intro" x-data>
+  <div class="intro__heading" x-intersect.once="$el.classList.add('in-view')">
+    {% if module.intro_heading %}
+      <h2>{{ module.intro_heading }}</h2>
+    {% endif %}
+  </div>
+  <div class="intro__body" x-intersect.once="$el.classList.add('in-view')">
+    {{ module.intro_body }}
+  </div>
+</div>

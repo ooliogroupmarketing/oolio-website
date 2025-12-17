@@ -1,0 +1,105 @@
+.hero {
+  background-color: #222;
+  color: #fff;
+  height: calc(100vh - 20px);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+.hero__bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero__bg-overlay {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, rgba(34, 34, 34, 0.5) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero__container {
+  padding: 30px 26px;
+  padding-top: 90px;
+  max-width: 600px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+.hero__body {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero__body h1 {
+  color: #fff;
+}
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+@media (min-width: 468px) {
+  .hero__actions {
+    flex-direction: row;
+  }
+}
+@media (min-width: 768px) {
+  .hero__container {
+    justify-content: center;
+    padding-top: 30px;
+    max-width: 600px;
+  }
+  .hero__body {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+@media (min-width: 1024px) {
+  .hero__container {
+    max-width: 60%;
+  }
+  .hero__body {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .hero__body.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }  
+  .hero__actions {
+    padding-top: 20px;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+  }
+  .hero__actions.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }  
+}
+@media (min-width: 1268px) {
+  .hero__body p {
+    font-size: 22px;
+    line-height: 1.8rem;
+  }  
+}

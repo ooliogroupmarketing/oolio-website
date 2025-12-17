@@ -1,8 +1,74 @@
+{# Buttons macro #}
+{% macro buttons(items, button1_style, button2_style) %}
+
+  {% macro render_button(item) %}
+
+    {% set href = item.button_link.url.href %}
+    {% if item.button_link.url.type == "EXTERNAL" %}
+      {% if href is not string_startingwith("tel:") %}
+        {% set href = href|escape_url %}
+      {% endif %}
+    {% endif %}
+    {% if item.button_link.url.type == "PHONE_NUMBER" %}
+      {% set href = "tel:" + href %}
+    {% endif %}
+    {% if item.button_link.url.type == "EMAIL_ADDRESS" %}
+      {% set href = "mailto:" + href %}
+    {% endif %}    
+    {% set rel = [] %}
+    {% if item.button_link.no_follow %}
+      {% do rel.append("nofollow") %}
+    {% endif %}
+    {% if item.button_link.open_in_new_tab %}
+      {% do rel.append("noopener") %}
+    {% endif %}    
+      <a
+        class="button
+        {% if loop.index == 1 %}{{ button1_style }}{% endif %}
+        {% if loop.index == 2 %}{{ button2_style }}{% endif %}"
+        href="{{ href }}"
+        {% if item.link.open_in_new_tab %}target="_blank"{% endif %}
+        {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+      >
+        <span>{{ item.button_text }}</span>
+      </a>
+  {% endmacro %}
+
+  {% for item in items %}
+    {{ render_button(item) }}
+  {% endfor %}
+
+{% endmacro %}
+
 {# Module styles #}
 {% require_css %}
   <style>
     {% scope_css %}
-
     {% end_scope_css %}
   </style>
 {% end_require_css %}
+
+<div class="accordion" x-data>
+  <div class="accordion__body" x-intersect.once="$el.classList.add('in-view')">
+    {% if module.tag %}
+      <span class="tag">{{ module.tag }}</span>
+    {% endif %}
+    {{ module.body_text }}
+  </div>
+  <div class="accordion__items" x-intersect.once="$el.classList.add('in-view')">
+    {% for item in module.questions %}
+      <div class="accordion__item" x-data="{ isOpen: false }">
+        <button class="accordion__header" @click="isOpen = !isOpen" :aria-expanded="isOpen.toString()">
+          <span class="accordion__question">{{ item.question }}</span>
+          <svg x-show="!isOpen" class="accordion__icon" aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+          <svg x-show="isOpen" class="accordion__icon" aria-hidden="true" width="10" height="2" viewBox="0 0 10 2" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="2" fill="currentColor"/></svg>
+        </button>
+        <div class="accordion__content" x-show="isOpen" x-collapse.duration.200ms>
+          <div class="accordion__answer">
+            {{ item.answer }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

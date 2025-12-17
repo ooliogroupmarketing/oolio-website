@@ -1,19 +1,44 @@
+{% if module.social_links %}
 <div class="footer__social">
   <ul class="social__list">
-    <li class="social__item">
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social__link">
-        Facebook
-      </a>
-    </li>
-    <li class="social__item">
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social__link">
-        Instagram
-      </a>
-    </li>
-    <li class="social__item">
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social__link">
-        LinkedIn
-      </a>
-    </li>
-  </ul>  
+
+    {% for item in module.social_links %}
+
+      {# Sets attributes used for the link field #}
+      {% set href = item.social_link.url.href %}
+      {% set rel = [] %}
+      {% if item.social_link.no_follow %}
+        {% do rel.append("nofollow") %}
+      {% endif %}
+      {% if item.social_link.open_in_new_tab %}
+        {% do rel.append("noopener") %}
+      {% endif %}
+
+      {# Sets a icon #}
+      {% set social_icon = item.social_icon.name %}
+        
+      <li class="social__item">
+        <a 
+          class="social__link"
+          href="{{ href|escape_url }}"
+          {% if item.social_link.open_in_new_tab %}target="_blank"{% endif %}
+          {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+        >
+          {% icon
+            extra_classes="social__icon",
+            name="{{ social_icon }}",
+            icon_set="fontawesome-6.4.2"
+            purpose="semantic",
+            style="SOLID",
+            title="{{ item.accessibility.title }}",
+            unique_in_loop=True
+          %}
+          <span class="social__name show-for-sr">{{ item.social_name }}</span>
+        </a>
+      </li>
+
+    {% endfor %}
+
+  </ul>
 </div>
+{% endif %}

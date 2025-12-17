@@ -12,33 +12,319 @@
     label="Main Content Area",
     class="body-container body-container--page"
   %}
-    {% dnd_section %}
-      {% dnd_module 
-        path="../components/modules/ExampleReact",
-        offset=0,
-        width=6
-      %}
-      {% end_dnd_module %}
-      {% dnd_module 
-        path="../hubl-modules/example-hubl.module",
-        offset=6,
-        width=6
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_section %}
-  {% end_dnd_area %}
 
-  <div class="content-fill">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "0px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "0px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12,
+        padding={
+          "default" : {
+            "left" : "0px",
+            "right" : "0px"
+          }
+        }
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/hero",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12,
+        padding={
+          "default" : {
+            "left" : "0px",
+            "right" : "0px"
+          }
+        }
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/testimonials",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}   
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12,
+        padding={
+          "default" : {
+            "left" : "0px",
+            "right" : "0px"
+          }
+        }
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/features",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}    
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        },
+        "mobile" : {
+          "bottom" : "64px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "64px"
+        }        
+      }
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/intro",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "0px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "0px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/carousel-horizontal",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}        
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        },
+        "mobile" : {
+          "bottom" : "64px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "64px"
+        }        
+      }
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/accordion",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}    
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        },
+        "mobile" : {
+          "bottom" : "64px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "64px"
+        }        
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12,
+        padding={
+          "default" : {
+            "left" : "0px",
+            "right" : "0px"
+          }
+        }
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/logos",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}    
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        },
+        "mobile" : {
+          "bottom" : "64px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "64px"
+        }        
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/boxes",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "0px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "0px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/carousel-vertical",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}    
+
+    {% dnd_section
+      padding={
+        "default" : {
+          "bottom" : "80px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "80px"
+        },
+        "mobile" : {
+          "bottom" : "64px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "64px"
+        }        
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../hubl-modules/banner",
+            offset=0,
+            width=12
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}    
+
+  {% end_dnd_area %}
 
 {% endblock body %}

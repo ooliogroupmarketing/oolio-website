@@ -1,0 +1,488 @@
+[
+  {
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  },
+  {
+    "type": "richtext",
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Phasellus rhoncus augue risus</h2>\n<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut. <strong>Duis convallis felis dui, nec tempor turpis auctor ut</strong>.</p>"
+  },
+  {
+    "type": "group",
+    "id": "buttons",
+    "label": "Buttons",
+    "children": [
+      {
+        "type": "link",
+        "id": "buttons.button_link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG",
+          "CALL_TO_ACTION",
+          "PHONE_NUMBER"
+        ],
+        "label": "Button link",
+        "name": "button_link"
+      },
+      {
+        "type": "text",
+        "id": "buttons.button_text",
+        "validation_regex": "",
+        "label": "Button text",
+        "name": "button_text",
+        "default": "Button text"
+      }
+    ],
+    "name": "buttons",
+    "default": [
+    {
+      "button_link": {
+      "url": {
+        "content_id": null,
+        "href": "",
+        "type": "CONTENT"
+      },
+      "open_in_new_tab": false,
+      "no_follow": false
+      },
+      "button_text": "Button text"
+    }
+    ],
+    "occurrence": {
+      "max": 2,
+      "default": 1,
+      "sorting_label_field": "buttons.button_text"
+    }
+  },
+  {
+    "type": "group",
+    "id": "carousel",
+    "label": "Carousel",
+    "children": [
+      {
+        "type": "choice",
+        "id": "carousel.carousel_item_style",
+        "display": "radio",
+        "choices": [
+          ["style1", "Item style 1"],
+          ["style2", "Item style 2"]
+        ],
+        "label": "Carousel item style",
+        "name": "carousel_item_style",
+        "default": "style1"
+      },        
+      {
+        "type": "text",
+        "id": "carousel.item_name",
+        "validation_regex": "",
+        "label": "Item name",
+        "name": "item_name",
+        "default": "Carousel Item"
+      },      
+      {
+        "type": "richtext",
+        "id": "carousel.item_description",
+        "label": "Item description",
+        "name": "item_description",
+        "default": "<p>\"Mauris fringilla sapien eu vulputate aliquam. Pellentesque sit amet justo et quam consectetur tristique.\"</p>"
+      },
+      {
+        "name": "enable_item_link",
+        "id": "carousel.enable_item_link",
+        "label": "Link carousel item",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "display": "checkbox",
+        "default": true
+      },
+      {
+        "type": "link",
+        "id": "carousel.item_link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG",
+          "CALL_TO_ACTION",
+          "PHONE_NUMBER"
+        ],
+        "label": "Item link",
+        "name": "item_link",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "carousel.enable_item_link",
+          "controlling_value_regex": true
+        }
+      },
+      {
+        "type": "image",
+        "id": "carousel.carousel_image",
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false,
+        "label": "Image",
+        "name": "carousel_image",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "carousel.carousel_item_style",
+          "controlling_value_regex": "style2"
+        },
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        }              
+      },
+      {
+        "type": "choice",
+        "name": "background_type",
+        "id": "carousel.background_type",
+        "label": "Background type",
+        "required": true,
+        "locked": false,
+        "multiple": "false",
+        "display": "radio",
+        "choices": [
+          ["background-gradient", "Background gradient"],
+          ["background-image", "Background image"]
+        ],
+        "default": "background-gradient"
+      },
+      {
+        "type": "choice",
+        "id": "carousel.background_gradient",
+        "display": "select",
+        "choices": [
+          ["background--gradient1", "Background gradient 1"],
+          ["background--gradient2", "Background gradient 2"],
+          ["background--gradient3", "Background gradient 3"],
+          ["background--gradient4", "Background gradient 4"]
+        ],
+        "label": "Background gradient",
+        "name": "background_gradient",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "carousel.background_type",
+          "controlling_value_regex": "background-gradient"
+        },       
+        "default": "background--gradient1"
+      },
+      {
+        "type": "image",
+        "id": "carousel.background_image",
+        "resizable": false,
+        "responsive": true,
+        "show_loading": false,
+        "label": "Background image",
+        "name": "background_image",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "carousel.background_type",
+          "controlling_value_regex": "background-image"
+        },
+        "default": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        }             
+      },           
+      {
+        "type": "group",
+        "id": "carousel.hover",
+        "label": "Hover",
+        "children": [
+          {
+            "type": "choice",
+            "id": "carousel.hover.background_gradient",
+            "display": "select",
+            "choices": [
+              ["background--gradient1", "Background gradient 1"],
+              ["background--gradient2", "Background gradient 2"],
+              ["background--gradient3", "Background gradient 3"],
+              ["background--gradient4", "Background gradient 4"]
+            ],
+            "label": "Background gradient",
+            "name": "background_gradient",
+            "default": "background--gradient1"
+          }
+        ],
+        "name": "hover",
+        "visibility": {
+          "operator": "EQUAL",
+          "controlling_field_path": "carousel.enable_item_link",
+          "controlling_value_regex": true
+        },        
+        "default": {
+          "background_gradient": "background--gradient1"
+        }
+      }
+    ],
+    "name": "carousel",
+    "default": [
+      {
+        "carousel_item_style": "style1",
+        "item_name": "Carousel Item 1",      
+        "item_description": "<p>Mauris fringilla sapien eu vulputate aliquam. Pellentesque sit amet justo et quam consectetur tristique.</p>",
+        "enable_item_link": true,
+        "item_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "carousel_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },
+        "background_type": "background-gradient",
+        "background_gradient": "background--gradient1",
+        "background_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },        
+        "hover": {
+          "background_gradient": "background--gradient2"
+        }
+      },
+      {
+        "carousel_item_style": "style1",
+        "item_name": "Carousel Item 2",      
+        "item_description": "<p>Mauris fringilla sapien eu vulputate aliquam. Pellentesque sit amet justo et quam consectetur tristique.</p>",
+        "enable_item_link": true,
+        "item_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "carousel_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },        
+        "background_type": "background-gradient",
+        "background_gradient": "background--gradient2",
+        "background_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },        
+        "hover": {
+          "background_gradient": "background--gradient3"
+        }        
+      },
+      {
+        "carousel_item_style": "style1",
+        "item_name": "Carousel Item 3",      
+        "item_description": "<p>Mauris fringilla sapien eu vulputate aliquam. Pellentesque sit amet justo et quam consectetur tristique.</p>",
+        "enable_item_link": true,
+        "item_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "carousel_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },           
+        "background_type": "background-gradient",
+        "background_gradient": "background--gradient3",
+        "background_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },          
+        "hover": {
+          "background_gradient": "background--gradient4"
+        }
+      },
+      {
+        "carousel_item_style": "style1",
+        "item_name": "Carousel Item 4",      
+        "item_description": "<p>Mauris fringilla sapien eu vulputate aliquam. Pellentesque sit amet justo et quam consectetur tristique.</p>",
+        "enable_item_link": true,
+        "item_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "carousel_image": {
+          "size_type": "auto",
+          "src": "",
+          "alt": null,
+          "loading": "lazy"
+        },        
+        "background_type": "background-gradient",
+        "background_gradient": "background--gradient4",        
+        "hover": {
+          "background_gradient": "background--gradient1"
+        }        
+      }        
+    ],
+    "occurrence": {
+      "default": 4,
+      "sorting_label_field": "carousel.item_name"
+    }
+  },    
+  {
+    "type": "group",
+    "isNew": false,
+    "name": "style",
+    "label": "Style",
+    "tab": "STYLE",
+    "id": "style",
+    "children": [
+      {
+        "type": "group",
+        "id": "style.body_text",
+        "label": "Body text",
+        "children": [
+          {
+            "name": "use_ticks",
+            "id": "style.body_text.use_ticks",
+            "label": "Use ticks for bullet points",
+            "required": false,
+            "locked": false,
+            "type": "boolean",
+            "display": "checkbox",
+            "help_text": "Shows ticks for bullet points when enabled",
+            "default": false
+          }
+        ],
+        "name": "body_text",
+        "default": {
+          "use_ticks": false
+        }
+      },      
+      {
+        "type": "group",
+        "id": "style.buttons",
+        "label": "Buttons",
+        "children": [
+          {
+            "type": "choice",
+            "id": "style.buttons.button_1_style",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 1 style",
+            "name": "button_1_style",
+            "default": "button--button1"
+          },
+          {
+            "type": "choice",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 2 style",
+            "name": "button_2_style",
+            "default": "button--button2",
+            "id": "style.buttons.button_2_style"
+          }
+        ],
+        "name": "buttons",
+        "default": {
+          "button_1_style": "button--button2",
+          "button_2_style": "button--button1"
+        }
+      },
+      {
+        "type": "group",
+        "id": "style.carousel",
+        "label": "Carousel",
+        "children": [
+          {
+            "name": "use_ticks",
+            "id": "style.carousel.use_ticks",
+            "label": "Use ticks for bullet points",
+            "required": false,
+            "locked": false,
+            "type": "boolean",
+            "display": "checkbox",
+            "help_text": "Shows ticks for bullet points when enabled",
+            "default": false
+          }          
+        ],
+        "name": "carousel",
+        "default": {
+          "use_ticks": false
+        }
+      }      
+    ],
+    "default": {
+      "body_text": {
+        "use_ticks": false
+      },      
+      "carousel": {
+        "use_ticks": false
+      },
+      "buttons": {
+        "button_1_style": "button--button1",
+        "button_2_style": "button--button2"
+      }
+    }
+  }
+]

@@ -1,0 +1,243 @@
+{# Buttons macro #}
+{% macro buttons(items, button1_style, button2_style) %}
+
+  {% macro render_button(item) %}
+
+    {% set href = item.button_link.url.href %}
+    {% if item.button_link.url.type == "EXTERNAL" %}
+      {% if href is not string_startingwith("tel:") %}
+        {% set href = href|escape_url %}
+      {% endif %}
+    {% endif %}
+    {% if item.button_link.url.type == "PHONE_NUMBER" %}
+      {% set href = "tel:" + href %}
+    {% endif %}
+    {% if item.button_link.url.type == "EMAIL_ADDRESS" %}
+      {% set href = "mailto:" + href %}
+    {% endif %}    
+    {% set rel = [] %}
+    {% if item.button_link.no_follow %}
+      {% do rel.append("nofollow") %}
+    {% endif %}
+    {% if item.button_link.open_in_new_tab %}
+      {% do rel.append("noopener") %}
+    {% endif %}    
+      <a
+        class="button
+        {% if loop.index == 1 %}{{ button1_style }}{% endif %}
+        {% if loop.index == 2 %}{{ button2_style }}{% endif %}"
+        href="{{ href }}"
+        {% if item.link.open_in_new_tab %}target="_blank"{% endif %}
+        {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+      >
+        <span>{{ item.button_text }}</span>
+      </a>
+  {% endmacro %}
+
+  {% for item in items %}
+    {{ render_button(item) }}
+  {% endfor %}
+
+{% endmacro %}
+
+{# Module styles #}
+{% require_css %}
+  <style>
+    {% scope_css %}
+
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="cvertical-scroll-wrapper">
+<div class="cvertical" x-data="{
+  scrollPosition: 0,
+  maxScroll: 0,
+  isStuck: false,
+  isInitialized: false,
+  init() {
+    const cvitems = this.$refs.cvitems;
+    let wheelHandler = null;
+    let keyHandler = null;
+    
+    // Calculate max scroll distance
+    const calculateMaxScroll = () => {
+      if (window.innerWidth < 1024) return;
+      const itemsHeight = cvitems.scrollHeight;
+      const containerHeight = this.$el.clientHeight;
+      this.maxScroll = Math.max(0, itemsHeight - containerHeight);
+      // console.log('maxScroll calculated:', this.maxScroll, 'itemsHeight:', itemsHeight, 'containerHeight:', containerHeight);
+    };
+    
+    const setupHandlers = () => {
+      if (window.innerWidth < 1024) {
+        // Clean up handlers if below breakpoint
+        if (wheelHandler) {
+          window.removeEventListener('wheel', wheelHandler);
+          window.removeEventListener('keydown', keyHandler);
+          wheelHandler = null;
+          keyHandler = null;
+          this.isInitialized = false;
+          this.scrollPosition = 0;
+        }
+        return;
+      }
+      
+      if (this.isInitialized) return;
+      
+      this.$nextTick(() => {
+        calculateMaxScroll();
+      });
+      
+      const handleScroll = (e) => {
+        if (window.innerWidth < 1024) return;
+        
+        const rect = this.$el.getBoundingClientRect();
+        this.isStuck = rect.top <= 11 && rect.top >= 9;
+        
+        if (!this.isStuck) return;
+        
+        // Determine scroll delta
+        let scrollDelta = 0;
+        if (e.type === 'wheel') {
+          scrollDelta = e.deltaY;
+        } else if (e.type === 'keydown') {
+          if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            scrollDelta = 100;
+          } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            scrollDelta = -100;
+          } else if (e.key === ' ') {
+            scrollDelta = e.shiftKey ? -100 : 100;
+          } else if (e.key === 'Home') {
+            this.scrollPosition = 0;
+            return;
+          } else if (e.key === 'End') {
+            this.scrollPosition = this.maxScroll;
+            return;
+          } else {
+            return;
+          }
+        } else {
+          return;
+        }
+        
+        const newPosition = this.scrollPosition + scrollDelta;
+        
+        // Clamp the new position to valid range
+        const clampedPosition = Math.max(0, Math.min(this.maxScroll, newPosition));
+        
+        // Check if we're at boundaries
+        const atTop = this.scrollPosition <= 0;
+        const atBottom = this.scrollPosition >= this.maxScroll;
+        const movingUp = scrollDelta < 0;
+        const movingDown = scrollDelta > 0;
+        
+        // Allow page scroll if we're at boundaries and trying to go further
+        if ((movingUp && atTop) || (movingDown && atBottom)) {
+          return;
+        }
+        
+        // Prevent default and update transform position
+        e.preventDefault();
+        this.scrollPosition = clampedPosition;
+      };
+      
+      wheelHandler = handleScroll;
+      keyHandler = handleScroll;
+      
+      window.addEventListener('wheel', wheelHandler, { passive: false });
+      window.addEventListener('keydown', keyHandler, { passive: false });
+      this.isInitialized = true;
+    };
+    
+    // Initial setup
+    setupHandlers();
+    
+    // Recalculate and reinitialize on window resize
+    window.addEventListener('resize', () => {
+      setupHandlers();
+      if (window.innerWidth >= 1024) {
+        calculateMaxScroll();
+      }
+    });
+  }
+}" x-ref="cvertical">
+  <div class="cvertical__wrap">
+    <div class="cvertical__container half-layout__container" x-intersect.once="$el.classList.add('in-view')">
+      <div class="cvertical__body{% if module.style.body_text.use_ticks %} list-ticks{% endif %}">
+        {% if module.tag %}
+          <span class="tag">{{ module.tag }}</span>
+        {% endif %}
+        {{ module.body_text }}      
+      </div>
+      {% if module.buttons is iterable and module.buttons|length > 0 %}
+        <div class="cvertical__actions" x-intersect.once="$el.classList.add('in-view')">
+          {{ buttons(module.buttons, module.style.buttons.button_1_style, module.style.buttons.button_2_style) }}
+        </div>
+      {% endif %}         
+    </div>
+  </div>
+  <div class="cvertical__cvitems" x-ref="cvitems" :style="`transform: translate3d(0, -${scrollPosition}px, 0)`">
+    {% for item in module.carousel %}
+
+      {% set item_href = item.item_link.url.href %}
+      {% if item.item_link.url.type == "EXTERNAL" %}
+        {% if item_href is not string_startingwith("tel:") %}
+          {% set item_href = item_href|escape_url %}
+        {% endif %}
+      {% endif %}
+      {% if item.item_link.url.type == "PHONE_NUMBER" %}
+        {% set item_href = "tel:" + item_href %}
+      {% endif %}
+      {% if item.item_link.url.type == "EMAIL_ADDRESS" %}
+        {% set item_href = "mailto:" + item_href %}
+      {% endif %}    
+      {% set rel = [] %}
+      {% if item.item_link.no_follow %}
+        {% do rel.append("nofollow") %}
+      {% endif %}
+      {% if item.item_link.open_in_new_tab %}
+        {% do rel.append("noopener") %}
+      {% endif %}    
+
+      <div class="cvitem cvitem--{{ item.carousel_item_style }}">
+        {% if item.enable_item_link %}
+          <a 
+            class="cvitem__link {{ item.background_gradient }}"
+            href="{{ item_href }}"
+            {% if item.item_link.open_in_new_tab %}target="_blank"{% endif %}
+            {% if rel %}rel="{{ rel|join(" ")|escape_attr }}"{% endif %}
+          >
+        {% else %}
+          <div class="cvitem__non-link {{ item.background_gradient }}">
+        {% endif %}
+          {% if item.background_type == "background-image" and item.background_image.src %}
+            <img class="cvitem__background-image" src="{{ item.background_image.src }}?noresize" alt="{{ item.background_image.alt }}" width="{{ item.background_image.width }}" height="{{ item.background_image.height }}">
+          {% endif %}        
+          <div class="cvitem__overlay{% if item.background_image.src and item.carousel_item_style == "style2" %} cvitem__overlay--shadow{% endif %}{% if module.style.carousel.use_ticks %} list-ticks{% endif %}">
+            {% if item.item_name %}
+              <h3>{{ item.item_name }}</h3>
+              {{ item.item_description }}
+            {% endif %}
+            {% if item.carousel_image.src and item.carousel_item_style == "style2" %}
+              <img class="cvitem__image" src="{{ item.carousel_image.src }}?noresize" alt="{{ item.carousel_image.alt }}" width="{{ item.carousel_image.width }}" height="{{ item.carousel_image.height }}">
+            {% endif %}               
+          </div>
+          {% if item.enable_item_link and item.carousel_item_style == "style1" %}
+            <div class="cvitem__hover{% if module.style.carousel.use_ticks %} list-ticks{% endif %} {{ item.hover.background_gradient }}">
+              <svg class="cvitem__hover-icon" width="22" height="22" viewBox="0 0 22 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 18.3333C22 19.3459 21.1792 20.1667 20.1666 20.1667C19.1541 20.1667 18.3333 19.3459 18.3333 18.3333V6.25937L3.1297 21.463C2.41374 22.179 1.25293 22.179 0.536966 21.463C-0.178986 20.7471 -0.178992 19.5863 0.536966 18.8703L15.7406 3.66664H3.66665C2.65413 3.66663 1.83333 2.84584 1.83333 1.83332C1.83333 0.8208 2.65413 9.63814e-06 3.66665 0H20.1666C21.1792 0 22 0.820795 22 1.83332V18.3333Z" fill="currentColor"/></svg>
+              <h3>{{ item.item_name }}</h3>
+              {{ item.item_description }}
+            </div>
+          {% endif %}
+        {% if item.enable_item_link %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+          
+    {% endfor %}           
+  </div>
+</div>
+</div>

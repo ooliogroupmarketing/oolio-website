@@ -1,34 +1,190 @@
 [
   {
-    "name": "rich_text",
-    "label": "Rich Text",
-    "required": false,
-    "locked": false,
-    "type": "richtext",
-    "default": "<p>Example Hubl Module</p>"
-  },  
+    "type": "text",
+    "id": "banner_heading",
+    "validation_regex": "",
+    "label": "Banner heading",
+    "name": "banner_heading",
+    "default": "Suspendisse interdum ornare odio id tempus?"
+  },
   {
-    "label": "Styles",
-    "name": "styles",
+    "type": "richtext",
+    "id": "banner_body",
+    "label": "Banner body",
+    "name": "banner_body",
+    "default": "<p>Nulla pharetra porttitor tristique imperdiet convallis.<br><strong>Orci varius natoque penatibus et magnis</strong>.</p>"
+  },
+  {
     "type": "group",
-    "tab": "STYLE",
+    "id": "buttons",
+    "label": "Buttons",
     "children": [
       {
-        "label": "Background",
-        "name": "background",
+        "type": "link",
+        "id": "buttons.button_link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG",
+          "CALL_TO_ACTION",
+          "PHONE_NUMBER"
+        ],
+        "label": "Button link",
+        "name": "button_link"
+      },
+      {
+        "type": "text",
+        "id": "buttons.button_text",
+        "validation_regex": "",
+        "label": "Button text",
+        "name": "button_text",
+        "default": "Button text"
+      }
+    ],
+    "name": "buttons",
+    "default": [
+      {
+        "button_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "button_text": "Button text 1"
+      },
+      {
+        "button_link": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "button_text": "Button text 2"
+      }      
+    ],
+    "occurrence": {
+      "max": 2,
+      "default": 1,
+      "sorting_label_field": "buttons.button_text"
+    }
+  },
+  {
+    "id": "style",
+    "label": "Style",
+    "locked": false,
+    "name": "style",
+    "required": false,
+    "tab": "STYLE",
+    "type": "group",
+    "children": [
+      {
         "type": "group",
+        "id": "style.banner",
+        "label": "Banner",
         "children": [
           {
-            "label": "Color",
-            "name": "color",
-            "type": "color",
+            "name": "background_image",
+            "id": "style.banner.background_image",
+            "label": "Background image",
+            "required": false,
+            "type": "backgroundimage",
             "default": {
-              "color": null,
-              "opacity": 100
+              "src": "",
+              "background_position": "MIDDLE_CENTER",
+              "background_size": "cover"
             }
           }
-        ]
+        ],
+        "name": "banner",
+        "default": {
+          "background_image": {
+            "src": "",
+            "background_position": "MIDDLE_CENTER",
+            "background_size": "cover"
+          }
+        }
+      },      
+      {
+        "children": [
+          {
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "default": "button--button1",
+            "display": "select",
+            "display_width": null,
+            "id": "button_1_style",
+            "label": "Button 1 style",
+            "locked": false,
+            "multiple": false,
+            "name": "button_1_style",
+            "preset": null,
+            "reordering_enabled": true,
+            "required": false,
+            "type": "choice"
+          },
+          {
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "default": "button--button3",
+            "display": "select",
+            "display_width": null,
+            "id": "button_2_style",
+            "label": "Button 2 style",
+            "locked": false,
+            "multiple": false,
+            "name": "button_2_style",
+            "preset": null,
+            "reordering_enabled": true,
+            "required": false,
+            "type": "choice"
+          }
+        ],
+        "default": {
+          "button_1_style": "button--button4",
+          "button_2_style": "button--button3"
+        },
+        "display_width": null,
+        "expanded": false,
+        "group_occurrence_meta": null,
+        "id": "style.buttons",
+        "label": "Buttons",
+        "locked": false,
+        "name": "buttons",
+        "required": false,
+        "tab": "STYLE",
+        "type": "group"
       }
-    ]
+    ],
+    "default": {
+      "buttons": {
+        "button_1_style": "button--button1",
+        "button_2_style": "button--button3"
+      }
+    }
   }
 ]

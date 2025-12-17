@@ -42,7 +42,7 @@
       }
 
       // Console log to confirm main.js is loaded
-      console.log('Main JavaScript loaded');
+      //console.log('Main JavaScript loaded');
     }
   });
 })();

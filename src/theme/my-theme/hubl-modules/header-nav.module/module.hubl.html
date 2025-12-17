@@ -7,7 +7,7 @@
     megaMenu1Open: false,
     megaMenu2Open: false,
     headerHidden: false,
-    headerTop: true,
+    headerScrolled: false,
     lastScrollY: 0,
     scrollPosition: 0,
     
@@ -16,8 +16,8 @@
       window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         
-        // Track if we're at the top of the page
-        this.headerTop = currentScrollY <= 220;
+        // Track if user has scrolled
+        this.headerScrolled = currentScrollY > 220;
         
         // Don't hide header if mobile menu is open
         if (this.mobileMenuOpen) {
@@ -47,7 +47,7 @@
   }"
   x-effect="
     $el.closest('.header').classList.toggle('header--hidden', headerHidden);
-    $el.closest('.header').classList.toggle('header--top', headerTop);
+    $el.closest('.header').classList.toggle('header--scroll', headerScrolled);
     $el.closest('.header').classList.toggle('header--menu-open', megaMenu1Open || megaMenu2Open);
   "
   >
@@ -55,10 +55,12 @@
     <li class="header-nav__item">
       <a href="/solutions" class="header-nav__link header-nav__link--dropdown" @click.prevent="megaMenu1Open = !megaMenu1Open">
         <span>Solutions</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+        <svg x-show="!megaMenu1Open" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+        <svg x-show="megaMenu1Open" width="10" height="2" viewBox="0 0 10 2" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="2" fill="currentColor"/></svg>
       </a>
       <div class="header-nav__mega-menu" 
         x-show="megaMenu1Open && !headerHidden" 
+        x-cloak
         x-transition:enter="menu--enter"
         x-transition:enter-start="menu--enter-start"
         x-transition:enter-end="menu--enter-end"
@@ -79,9 +81,9 @@
           <li class="mega-menu__item"><a href="/solutions/online-ordering" class="mega-menu__link">Online Ordering</a></li>
           <li class="mega-menu__item"><a href="/solutions/qr-ordering" class="mega-menu__link">QR Ordering</a></li>
           <li class="mega-menu__item"><a href="/solutions/loyalty" class="mega-menu__link">Loyalty</a></li>
-          <li class="mega-menu__item"><a href="/solutions/insights" class="mega-menu__link">Insights</a></li>
+          <li class="mega-menu__item"><a href="/solutions/insights" class="mega-menu__link">Reporting &amp; Insights</a></li>
         </ul>
-        <div class="mega-menu__features">
+        {# <div class="mega-menu__features">
           <div class="mega-menu__feature">
             <img src="" alt="Feature Image" class="mega-menu__feature-image" />
             <div class="mega-menu__feature-content">
@@ -98,16 +100,18 @@
               <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
             </div>
           </div>
-        </div>
+        </div> #}
       </div>
     </li>
     <li class="header-nav__item">
       <a href="/business-types" class="header-nav__link header-nav__link--dropdown" @click.prevent="megaMenu2Open = !megaMenu2Open">
         <span>Business Types</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+        <svg x-show="!megaMenu2Open" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 6.25H3.75V8.75C3.75 9.44061 4.30969 10 5 10C5.69031 10 6.25 9.44061 6.25 8.75V6.25H8.75C9.44031 6.25 10 5.69061 10 5C10 4.30939 9.44031 3.75 8.75 3.75H6.25V1.25C6.25 0.559387 5.69031 -1.49012e-07 5 -1.49012e-07C4.30969 -1.49012e-07 3.75 0.559387 3.75 1.25V3.75H1.25C0.559687 3.75 -1.49012e-07 4.30939 -1.49012e-07 5C-1.49012e-07 5.69061 0.559687 6.25 1.25 6.25Z"/></svg>
+        <svg x-show="megaMenu2Open" width="10" height="2" viewBox="0 0 10 2" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="2" fill="currentColor"/></svg>
       </a>
       <div class="header-nav__mega-menu" 
         x-show="megaMenu2Open && !headerHidden" 
+        x-cloak
         x-transition:enter="menu--enter"
         x-transition:enter-start="menu--enter-start"
         x-transition:enter-end="menu--enter-end"
@@ -117,7 +121,7 @@
         @click.away="megaMenu2Open = false"
         >
         <ul class="mega-menu__list">
-          <li class="mega-menu__item"><a href="/business-types/cafes" class="mega-menu__link">Cafes</a></li>
+          <li class="mega-menu__item"><a href="/business-types/cafes" class="mega-menu__link">Cafés</a></li>
           <li class="mega-menu__item"><a href="/business-types/restaurants" class="mega-menu__link">Restaurants</a></li>
           <li class="mega-menu__item"><a href="/business-types/bars-and-clubs" class="mega-menu__link">Bars & Clubs</a></li>
           <li class="mega-menu__item"><a href="/business-types/hotels-and-pubs" class="mega-menu__link">Hotels & Pubs</a></li>
@@ -128,7 +132,7 @@
           <li class="mega-menu__item"><a href="/business-types/quick-service" class="mega-menu__link">Quick Service</a></li>
           <li class="mega-menu__item"><a href="/business-types/multi-location" class="mega-menu__link">Multi Location</a></li>
         </ul>
-        <div class="mega-menu__features">
+        {# <div class="mega-menu__features">
           <a href="#" class="mega-menu__feature">
             <img src="" alt="Feature Image" class="mega-menu__feature-image" />
             <div class="mega-menu__feature-content">
@@ -145,7 +149,7 @@
               <p class="mega-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
             </div>
           </a>
-        </div>
+        </div> #}
       </div>      
     </li>
     <li class="header-nav__item">
@@ -162,6 +166,19 @@
       </svg>
     </button>
   </div>
+
+  <div 
+    class="header-nav__mobile-overlay"
+    x-show="mobileMenuOpen"
+    x-cloak
+    x-transition:enter="menu--enter"
+    x-transition:enter-start="menu--enter-start"
+    x-transition:enter-end="menu--enter-end"
+    x-transition:leave="menu--leave"
+    x-transition:leave-start="menu--leave-start"
+    x-transition:leave-end="menu--leave-end"
+    @click="mobileMenuOpen = false"
+  ></div>
 
   <div 
     class="header-nav__mobile-menu" 
@@ -214,13 +231,13 @@
             <li class="mobile-menu__item"><a href="/solutions/online-ordering" class="mobile-menu__link">Online Ordering</a></li>
             <li class="mobile-menu__item"><a href="/solutions/qr-ordering" class="mobile-menu__link">QR Ordering</a></li>
             <li class="mobile-menu__item"><a href="/solutions/loyalty" class="mobile-menu__link">Loyalty</a></li>
-            <li class="mobile-menu__item"><a href="/solutions/insights" class="mobile-menu__link">Insights</a></li>
+            <li class="mobile-menu__item"><a href="/solutions/insights" class="mobile-menu__link">Reporting &amp; Insights</a></li>
           </ul>
         </div>
         <div class="mobile-menu__menu">
           <h4 class="mobile-menu__menu-title">Business Types</h4>
           <ul class="mobile-menu__list">
-            <li class="mobile-menu__item"><a href="/business-types/cafes" class="mobile-menu__link">Cafes</a></li>
+            <li class="mobile-menu__item"><a href="/business-types/cafes" class="mobile-menu__link">Cafés</a></li>
             <li class="mobile-menu__item"><a href="/business-types/restaurants" class="mobile-menu__link">Restaurants</a></li>
             <li class="mobile-menu__item"><a href="/business-types/bars-and-clubs" class="mobile-menu__link">Bars & Clubs</a></li>
             <li class="mobile-menu__item"><a href="/business-types/hotels-and-pubs" class="mobile-menu__link">Hotels & Pubs</a></li>
@@ -237,22 +254,27 @@
             <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Careers</a></li>
             <li class="mobile-menu__item"><a href="/customers" class="mobile-menu__link">Customers</a></li>
             <li class="mobile-menu__item"><a href="/blog" class="mobile-menu__link">Blog</a></li>
-            <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Help Guides</a></li>
+            <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Help &amp; Support</a></li>
           </ul>
+          <h4 class="mobile-menu__menu-title">Contacts</h4>
+          <ul class="mobile-menu__list">
+            <li class="mobile-menu__item"><a href="/contact-sales" class="mobile-menu__link">Contact Sales</a></li>
+            <li class="mobile-menu__item"><a href="/support" class="mobile-menu__link">Support</a></li>
+          </ul>              
         </div>
       </div>
-      <a href="#" class="mobile-menu__feature">
+      {# <a href="#" class="mobile-menu__feature">
         <img src="" alt="Feature Image" class="mobile-menu__feature-image" />
         <div class="mobile-menu__feature-content">
           <div class="mobile-menu__tag">Featured</div>
           <h3 class="mobile-menu__feature-title">Your POS, built to serve</h3>
           <p class="mobile-menu__feature-description">Pellentesque pretium ligula ut tortor congue, vitae.</p>
         </div>
-      </a>
+      </a> #}
     </div>
     <div class="mobile-menu__actions">
-      <a href="/contact-sales" class="mobile-menu__button button button--button1">Contact Sales</a>
-      <a href="/support" class="mobile-menu__button button button--button2">Support</a>
+      <a href="/contact-sales" class="mobile-menu__button button button--button4">Contact Sales</a>
+      <a href="/support" class="mobile-menu__button button button--button3">Help &amp; Support</a>
     </div>    
   </div>
 </nav>

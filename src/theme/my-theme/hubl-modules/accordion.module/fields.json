@@ -1,34 +1,178 @@
 [
+
   {
-    "name": "rich_text",
-    "label": "Rich Text",
-    "required": false,
-    "locked": false,
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  },
+  {
     "type": "richtext",
-    "default": "<p>Example Hubl Module</p>"
-  },  
+    "id": "body_text",
+    "label": "Body text",
+    "name": "body_text",
+    "default": "<h2>Lorem ipsum</h2>\n<p>Duis convallis felis dui, nec tempor turpis auctor ut. Ut non justo in ligula faucibus auctor. Praesent non pharetra odio.</p>"
+  },
   {
-    "label": "Styles",
-    "name": "styles",
     "type": "group",
-    "tab": "STYLE",
+    "id": "buttons",
+    "label": "Buttons",
     "children": [
       {
-        "label": "Background",
-        "name": "background",
+        "type": "link",
+        "id": "buttons.button_link",
+        "default": {
+          "url": {
+            "content_id": null,
+            "href": "",
+            "type": "CONTENT"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT",
+          "FILE",
+          "EMAIL_ADDRESS",
+          "BLOG",
+          "CALL_TO_ACTION",
+          "PHONE_NUMBER"
+        ],
+        "label": "Button link",
+        "name": "button_link"
+      },
+      {
+        "type": "text",
+        "id": "buttons.button_text",
+        "validation_regex": "",
+        "label": "Button text",
+        "name": "button_text",
+        "default": "Button text"
+      }
+    ],
+    "name": "buttons",
+    "default": [
+    {
+      "button_link": {
+      "url": {
+        "content_id": null,
+        "href": "",
+        "type": "CONTENT"
+      },
+      "open_in_new_tab": false,
+      "no_follow": false
+      },
+      "button_text": "Button text"
+    }
+    ],
+    "occurrence": {
+      "max": 2,
+      "default": 1,
+      "sorting_label_field": "buttons.button_text"
+    }
+  },
+  {
+    "type": "group",
+    "id": "questions",
+    "label": "Questions",
+    "children": [
+      {
+        
+        "type": "text",
+        "id": "questions.question",
+        "label": "Question",
+        "name": "question",
+        "default": "Praesent convallis facilisis ante sit amet placerat?"
+      },
+      {
+        "type": "richtext",
+        "id": "questions.answer",
+        "validation_regex": "",
+        "label": "Answer",
+        "name": "answer",
+        "default": "<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p>"
+      }
+    ],
+    "name": "questions",
+    "default": [
+      {
+        "question": "Praesent convallis facilisis ante sit amet placerat?",
+        "answer": "<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p><p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p>"
+      },
+      {
+        "question": "Donec vulputate mollis erat eu tristique?",
+        "answer": "<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p>"
+      },
+      {
+        "question": "Maecenas accumsan nisl ut vulputate ultrices nunc gravida?",
+        "answer": "<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p><p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p>"
+      },
+      {
+        "question": "Quisque maximus commodo tortor ut facilisis?",
+        "answer": "<p>Suspendisse eros sem, tincidunt sit amet est ac, pretium mollis sem. Aliquam vitae tempus odio. Phasellus rhoncus augue risus, non mollis metus feugiat ut.</p>"
+      }                  
+    ],
+    "occurrence": {
+    "default": 4
+    }
+  },  
+  {
+    "type": "group",
+    "isNew": false,
+    "name": "style",
+    "label": "Style",
+    "tab": "STYLE",
+    "id": "style",
+    "children": [
+      {
         "type": "group",
+        "id": "style.buttons",
+        "label": "Buttons",
         "children": [
           {
-            "label": "Color",
-            "name": "color",
-            "type": "color",
-            "default": {
-              "color": null,
-              "opacity": 100
-            }
+            "type": "choice",
+            "id": "style.buttons.button_1_style",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 1 style",
+            "name": "button_1_style",
+            "default": "button--button2"
+          },
+          {
+            "type": "choice",
+            "display": "select",
+            "choices": [
+              ["button--button1", "Button style 1"],
+              ["button--button2", "Button style 2"],
+              ["button--button3", "Button style 3"],
+              ["button--button4", "Button style 4"]
+            ],
+            "label": "Button 2 style",
+            "name": "button_2_style",
+            "default": "button--button1",
+            "id": "style.buttons.button_2_style"
           }
-        ]
+        ],
+        "name": "buttons",
+        "default": {
+          "button_1_style": "button--button2",
+          "button_2_style": "button--button1"
+        }
       }
-    ]
+    ],
+    "default": {
+      "buttons": {
+        "button_1_style": "button--button2",
+        "button_2_style": "button--button1"
+      }
+    }
   }
 ]

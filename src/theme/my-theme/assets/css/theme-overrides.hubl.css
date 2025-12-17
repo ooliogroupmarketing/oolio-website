@@ -31,7 +31,11 @@
 /* 1a. Containers */
 
 {% set container_width = theme.spacing.maximum_content_width ~ 'px' %}
-{% set dnd_section_padding = theme.spacing.vertical_spacing ~ 'px ' ~ '1rem' %}
+{% set container_width_half = (theme.spacing.maximum_content_width / 2)  ~ 'px' %}  
+{% set dnd_section_padding = theme.spacing.vertical_spacing ~ 'px ' ~ '0' %}
+{% set dnd_section_padding_mobile = (theme.spacing.vertical_spacing / 1.25) ~ 'px ' ~ '0' %}  
+{% set vertical_section_padding = theme.spacing.vertical_spacing ~ 'px' %}
+{% set vertical_section_padding_mobile = (theme.spacing.vertical_spacing / 1.25) ~ 'px' %}
 
 /* 1b. Colors */
 
@@ -67,17 +71,49 @@
 
 /* 1d. Buttons */
 
-{% set button_font = theme.buttons.text.font %}
-{% set button_text_transform = theme.buttons.text.transform %}
-{% set button_bg_color = color(theme.buttons.background.color) %}
-{% set button_border = theme.buttons.border.border.css %}
-{% set button_corner_radius = theme.buttons.corner.radius ~ 'px' %}
-{% set button_spacing = theme.buttons.spacing.spacing.css %}
+{% set button1_font = theme.buttons.button1.text.font %}
+{% set button1_text_transform = theme.buttons.button1.text.transform %}
+{% set button1_bg_color = color(theme.buttons.button1.background.color) %}
+{% set button1_border = theme.buttons.button1.border.border.css %}
+{% set button1_corner_radius = theme.buttons.button1.corner.radius ~ 'px' %}
+{% set button1_spacing = theme.buttons.button1.spacing.spacing.css %}
+{% set button1_color_hover = color(theme.buttons.button1.hover.text.color) %}
+{% set button1_background_hover = color(theme.buttons.button1.hover.background.color) %}
+{% set button1_border_hover = theme.buttons.button1.hover.border.border.css %}
+{% set button1_corner_radius_hover = theme.buttons.button1.hover.corner.radius ~ 'px' %}
 
-{% set button_color_hover = color(theme.buttons.hover.text.color) %}
-{% set button_background_hover = color(theme.buttons.hover.background.color) %}
-{% set button_border_hover = theme.buttons.hover.border.border.css %}
-{% set button_corner_radius_hover = theme.buttons.hover.corner.radius ~ 'px' %}
+{% set button2_font = theme.buttons.button2.text.font %}
+{% set button2_text_transform = theme.buttons.button2.text.transform %}
+{% set button2_bg_color = color(theme.buttons.button2.background.color) %}
+{% set button2_border = theme.buttons.button2.border.border.css %}
+{% set button2_corner_radius = theme.buttons.button2.corner.radius ~ 'px' %}
+{% set button2_spacing = theme.buttons.button2.spacing.spacing.css %}
+{% set button2_color_hover = color(theme.buttons.button2.hover.text.color) %}
+{% set button2_background_hover = color(theme.buttons.button2.hover.background.color) %}
+{% set button2_border_hover = theme.buttons.button2.hover.border.border.css %}
+{% set button2_corner_radius_hover = theme.buttons.button2.hover.corner.radius ~ 'px' %}
+
+{% set button3_font = theme.buttons.button3.text.font %}
+{% set button3_text_transform = theme.buttons.button3.text.transform %}
+{% set button3_bg_color = color(theme.buttons.button3.background.color) %}
+{% set button3_border = theme.buttons.button3.border.border.css %}
+{% set button3_corner_radius = theme.buttons.button3.corner.radius ~ 'px' %}
+{% set button3_spacing = theme.buttons.button3.spacing.spacing.css %}
+{% set button3_color_hover = color(theme.buttons.button3.hover.text.color) %}
+{% set button3_background_hover = color(theme.buttons.button3.hover.background.color) %}
+{% set button3_border_hover = theme.buttons.button3.hover.border.border.css %}
+{% set button3_corner_radius_hover = theme.buttons.button3.hover.corner.radius ~ 'px' %}
+
+{% set button4_font = theme.buttons.button4.text.font %}
+{% set button4_text_transform = theme.buttons.button4.text.transform %}
+{% set button4_bg_color = color(theme.buttons.button4.background.color) %}
+{% set button4_border = theme.buttons.button4.border.border.css %}
+{% set button4_corner_radius = theme.buttons.button4.corner.radius ~ 'px' %}
+{% set button4_spacing = theme.buttons.button4.spacing.spacing.css %}
+{% set button4_color_hover = color(theme.buttons.button4.hover.text.color) %}
+{% set button4_background_hover = color(theme.buttons.button4.hover.background.color) %}
+{% set button4_border_hover = theme.buttons.button4.hover.border.border.css %}
+{% set button4_corner_radius_hover = theme.buttons.button4.hover.corner.radius ~ 'px' %}
 
 /* 1e. Forms */
 {% set form_bg_color = color(theme.forms.form.background.color) %}
@@ -159,11 +195,18 @@
 
 .dnd-section,
 .content-wrapper--vertical-spacing {
-  padding: {{ dnd_section_padding }};
+  padding: {{ dnd_section_padding_mobile }};
 }
 
 .dnd-section > .row-fluid {
   max-width: {{ container_width }};
+}
+
+@media (min-width: 1024px) {
+  .dnd-section,
+  .content-wrapper--vertical-spacing {
+    padding: {{ dnd_section_padding }};
+  }
 }
 
 {###########################################################################}
@@ -177,13 +220,24 @@ html {
 body {
   {{ body_font.style }};
   color: {{ body_font.color }};
-  font-size: {{ body_font.size ~ body_font.size_unit }};
+  font-size: {{ (body_font.size * 0.9) ~ body_font.size_unit }};
+}
+@media (min-width: 1024px) {
+  body {
+    font-size: {{ body_font.size ~ body_font.size_unit }};
+  }
 }
 
 /* Paragraphs */
 
 p {
   {{ body_font.style }};
+  font-size: {{ (body_font.size * 0.9) ~ body_font.size_unit }};
+}
+@media (min-width: 1024px) {
+  p {
+    font-size: {{ body_font.size ~ body_font.size_unit }};
+  }
 }
 
 /* Anchors */
@@ -204,22 +258,65 @@ a:active {
   color: {{ color_variant(anchor_font.color, 40) }};
 }
 
+/* Accessible focus ring (uses theme primary color) */
+:focus-visible {
+  outline: 2px solid {{ primary_color }};
+  outline-offset: 2px;
+}
+
+/* Remove default outline on mouse focus while preserving keyboard focus */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Headings */
 
 h1,
 .h1 {
   {{ h1_font.style }};
   color: {{ h1_font.color }};
-  font-size: {{ h1_font.size ~ h1_font.size_unit }};
+  font-size: {{ (h1_font.size * 0.7) ~ h1_font.size_unit }};
   text-transform: {{ h1_text_transform }};
+  line-height: 1.05;
+}
+@media (min-width: 768px) {
+  h1,
+  .h1 {
+    font-size: {{ (h1_font.size * 0.8) ~ h1_font.size_unit }};
+  }
+}
+@media (min-width: 1024px) {
+  h1,
+  .h1 {
+    font-size: {{ h1_font.size ~ h1_font.size_unit }};
+  }
+}
+@media (min-width: 1268px) {
+  h1,
+  .h1 {
+    font-size: {{ (h1_font.size * 1.25) ~ h1_font.size_unit }};
+  }
 }
 
 h2,
 .h2 {
   {{ h2_font.style }};
   color: {{ h2_font.color }};
-  font-size: {{ h2_font.size ~ h2_font.size_unit }};
+  font-size: {{ (h2_font.size * 0.8) ~ h2_font.size_unit }};
   text-transform: {{ h2_text_transform }};
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  h2,
+  .h2 {
+    font-size: {{ (h2_font.size * 0.9) ~ h2_font.size_unit }};
+  }
+}
+@media (min-width: 1024px) {
+  h2,
+  .h2 {
+    font-size: {{ h2_font.size ~ h2_font.size_unit }};
+  }
 }
 
 h3,
@@ -257,7 +354,7 @@ h6,
 /* Blockquote */
 
 blockquote {
-  border-left-color: {{ secondary_color }};
+  /* border-left-color: {{ secondary_color }}; */
 }
 
 {###########################################################################}
@@ -266,39 +363,135 @@ blockquote {
 
 button,
 .button,
+.button--button1,
 .hs-button,
 .hs-blog-post-listing__post-button {
-  {{ button_border }}
-  {{ button_spacing }}
-  {{ button_font.style }};
-  background-color: {{ button_bg_color }};
-  border-radius: {{ button_corner_radius }};
-  color: {{ button_font.color }};
-  font-size: {{ button_font.size ~ button_font.size_unit }};
-  text-transform: {{ button_text_transform }};
+  {{ button1_border }}
+  {{ button1_spacing }}
+  {{ button1_font.style }};
+  background-color: {{ button1_bg_color }};
+  border-radius: {{ button1_corner_radius }};
+  color: {{ button1_font.color }};
+  font-size: {{ button1_font.size ~ button1_font.size_unit }};
+  text-transform: {{ button1_text_transform }};
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.03);
+}
+
+.button--button2 {
+  {{ button2_border }}
+  {{ button2_spacing }}
+  {{ button2_font.style }};
+  background-color: {{ button2_bg_color }};
+  border-radius: {{ button2_corner_radius }};
+  color: {{ button2_font.color }};
+  font-size: {{ button2_font.size ~ button2_font.size_unit }};
+  text-transform: {{ button2_text_transform }};
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.03);
+}
+
+.button--button3 {
+  {{ button3_border }}
+  {{ button3_spacing }}
+  {{ button3_font.style }};
+  background-color: {{ button3_bg_color }};
+  border-radius: {{ button3_corner_radius }};
+  color: {{ button3_font.color }};
+  font-size: {{ button3_font.size ~ button3_font.size_unit }};
+  text-transform: {{ button3_text_transform }};
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.03);
+}
+
+.button--button4 {
+  {{ button4_border }}
+  {{ button4_spacing }}
+  {{ button4_font.style }};
+  background-color: {{ button4_bg_color }};
+  border-radius: {{ button4_corner_radius }};
+  color: {{ button4_font.color }};
+  font-size: {{ button4_font.size ~ button4_font.size_unit }};
+  text-transform: {{ button4_text_transform }};
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.03);
 }
 
 button:hover,
 button:focus,
 .button:hover,
 .button:focus,
+.button--button1:hover,
+.button--button1:focus,
 .hs-button:hover,
 .hs-button:focus,
 .hs-blog-post-listing__post-button:hover,
 .hs-blog-post-listing__post-button:focus {
-  {{ button_border_hover }};
-  color: {{ button_color_hover }};
-  background-color: {{ button_background_hover }};
-  border-radius: {{ button_corner_radius_hover }};
+  {{ button1_border_hover }};
+  color: {{ button1_color_hover }};
+  background-color: {{ button1_background_hover }};
+  border-radius: {{ button1_corner_radius_hover }};
+}
+
+.button--button2:hover,
+.button--button2:focus {
+  {{ button2_border_hover }};
+  color: {{ button2_color_hover }};
+  background-color: {{ button2_background_hover }};
+  border-radius: {{ button2_corner_radius_hover }};
+}
+
+.button--button3:hover,
+.button--button3:focus {
+  {{ button3_border_hover }};
+  color: {{ button3_color_hover }};
+  background-color: {{ button3_background_hover }};
+  border-radius: {{ button3_corner_radius_hover }};
+}
+
+.button--button4:hover,
+.button--button4:focus {
+  {{ button4_border_hover }};
+  color: {{ button4_color_hover }};
+  background-color: {{ button4_background_hover }};
+  border-radius: {{ button4_corner_radius_hover }};
 }
 
 button:active,
 .button:active,
+.button--button1:active,
 .hs-button:active,
 .hs-blog-post-listing__post-button:active {
-  {{ button_font.style }};
-  background-color: rgba({{ color_variant(theme.buttons.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.background.color.opacity / 100 }});
-  border-color: {{ color_variant(theme.buttons.border.border.top.color, 40) }};
+  {{ button1_font.style }};
+  background-color: rgba({{ color_variant(theme.buttons.button1.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.button1.background.color.opacity / 100 }});
+  border-color: {{ color_variant(theme.buttons.button1.border.border.top.color, 40) }};
+}
+
+.button--button2:active {
+  {{ button2_font.style }};
+  background-color: rgba({{ color_variant(theme.buttons.button2.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.button2.background.color.opacity / 100 }});
+  border-color: {{ color_variant(theme.buttons.button2.border.border.top.color, 40) }};
+}
+
+.button--button3:active {
+  {{ button3_font.style }};
+  background-color: rgba({{ color_variant(theme.buttons.button3.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.button3.background.color.opacity / 100 }});
+  border-color: {{ color_variant(theme.buttons.button3.border.border.top.color, 40) }};
+}
+
+.button--button4:active {
+  {{ button4_font.style }};
+  background-color: rgba({{ color_variant(theme.buttons.button4.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.button4.background.color.opacity / 100 }});
+  border-color: {{ color_variant(theme.buttons.button4.border.border.top.color, 40) }};
+}
+
+@media (max-width: 767px) {
+  button,
+  .button,
+  .button--button1,
+  .button--button2,
+  .button--button3,
+  .button--button4,
+  .hs-button,
+  .hs-blog-post-listing__post-button {
+    font-size: {{ (button1_font.size / 1.1) ~ button1_font.size_unit }};
+  }
 }
 
 {###########################################################################}
@@ -423,8 +616,8 @@ form .hs-button:focus {
 
 form input[type=submit]:active,
 form .hs-button:active {
-  background-color: rgba({{ color_variant(theme.buttons.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.background.color.opacity / 100 }});
-  border-color: {{ color_variant(theme.buttons.border.border.top.color, 40) }};
+  background-color: rgba({{ color_variant(theme.buttons.button1.background.color.color, 40)|convert_rgb }}, {{ theme.buttons.background.color.opacity / 100 }});
+  border-color: {{ color_variant(theme.buttons.button1.border.border.top.color, 40) }};
 }
 
 {###########################################################################}
@@ -571,21 +764,6 @@ tfoot td {
 
 .footer {
   /* background-color: {{ footer_bg_color }}; */
-}
-
-/* Footer content */
-
-.footer p,
-.footer h1,
-.footer h2,
-.footer h3,
-.footer h4,
-.footer h5,
-.footer h6,
-.footer label,
-.footer span,
-.footer li,
-.footer img {
   color: {{ footer_font_color }};
 }
 
@@ -725,32 +903,95 @@ tfoot td {
   fill: {{ body_font.color }};
 }
 
-/* Pricing card */
+{###########################################################################}
+{############################   X. To categorise   ###############################}
+{###########################################################################}
 
-.card__price {
-  {{ h3_font.style }};
-  color: {{ h3_font.color }};
-  font-size: {{ h3_font.size ~ h3_font.size_unit }};
+.background--gradient1 {
+  position: relative;
+  background: linear-gradient(to bottom right, #673AB6, #3023AE);
+}
+a.background--gradient1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top left, #673AB6, #3023AE);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1;
+}
+a.background--gradient1:hover::before,
+a.background--gradient1:active::before,
+a.background--gradient1:focus::before {
+  opacity: 1;
 }
 
-.card__body svg {
-  fill: {{ primary_color }};
+.background--gradient2 {
+  position: relative;
+  background: linear-gradient(to bottom right, #E91E63, #8E24AA);
+}
+a.background--gradient2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top left, #E91E63, #8E24AA);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1;
+}
+a.background--gradient2:hover::before,
+a.background--gradient2:active::before,
+a.background--gradient2:focus::before {
+  opacity: 1;
 }
 
-/* Social follow */
-
-.social-links__icon {
-  background-color: {{ primary_color }};
+.background--gradient3 {
+  position: relative;
+  background: linear-gradient(to bottom right, #4caf50, #00897b);
+}
+a.background--gradient3::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top left, #4caf50, #00897b);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1;
+}
+a.background--gradient3:hover::before,
+a.background--gradient3:active::before,
+a.background--gradient3:focus::before {
+  opacity: 1;
 }
 
-.social-links__icon:hover,
-.social-links__icon:focus {
-  background-color: {{ color_variant(primary_color, -40) }};
+.background--gradient4 {
+  position: relative;
+  background: linear-gradient(to bottom right, #03a9f4, #3949ab);
+}
+a.background--gradient4::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top left, #03a9f4, #3949ab);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1;
+}
+a.background--gradient4:hover::before,
+a.background--gradient4:active::before,
+a.background--gradient4:focus::before {
+  opacity: 1;
 }
 
-.social-links__icon:active {
-  background-color: {{ color_variant(primary_color, 40) }};
-  {{ h3_font.style }};
-  color: {{ h3_font.color }};
-  font-size: {{ h3_font.size ~ h3_font.size_unit }};
+/* Containers for half layout width for full width sections */
+.half-layout__container {
+  padding-top: {{ vertical_section_padding_mobile }};
+  padding-bottom: {{ vertical_section_padding_mobile }};
+}
+@media (min-width: 1024px) {
+  .half-layout__container {
+    padding-top: {{ vertical_section_padding }};
+    padding-bottom: {{ vertical_section_padding }};    
+    max-width: {{ container_width_half }};
+  }
 }

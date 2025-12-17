@@ -2,7 +2,47 @@
 {% require_css %}
   <style>
     {% scope_css %}
-
+      .logos__slider {
+        --logo-count: {{ module.logos|length }};
+        --logo-width: 180px;
+        --logo-gap: 10px;
+      }
+      @media (min-width: 1024px) {
+        .logos__slider {
+          --logo-width: 240px;
+        }
+      }
     {% end_scope_css %}
   </style>
 {% end_require_css %}
+
+<div class="logos" x-data>
+  <div class="logos__body" x-intersect.once="$el.classList.add('in-view')">
+    {% if module.tag %}
+      <span class="tag">{{ module.tag }}</span>
+    {% endif %}
+    {{ module.body_text }}
+  </div>
+  <div class="logos__slider" x-intersect.once="$el.classList.add('in-view')">
+    <div class="slider__track">
+      {% for logo in module.logos %}
+        <div class="slider__logo">
+          <div class="slider__logo-box">
+            {% if logo.logo_image.src %}
+              <img src="{{ logo.logo_image.src }}?noresize" alt="{{ logo.logo_image.alt }}" width="{{ logo.logo_image.width }}" height="{{ logo.logo_image.height }}">
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      {% for logo in module.logos %}
+        <div class="slider__logo">
+          <div class="slider__logo-box">
+            {% if logo.logo_image.src %}
+              <img src="{{ logo.logo_image.src }}?noresize" alt="{{ logo.logo_image.alt }}" width="{{ logo.logo_image.width }}" height="{{ logo.logo_image.height }}">
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
