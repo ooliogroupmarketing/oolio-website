@@ -2,7 +2,11 @@
   display: flex;
   flex-direction: column;
 }
-.accordion__body {
+.accordion__container {
+  padding: 0 0 1.5rem 0;  
+}
+.accordion__body,
+.accordion__actions {
   padding: 0 16px;  
 }
 .accordion__items {
@@ -64,13 +68,13 @@
     justify-content: space-between;
     padding-right: 16px;
   }
-  .accordion__body {
+  .accordion__container {
     flex: 0 0 34%;
     opacity: 0;
     transform: translateX(-50px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-  .accordion__body.in-view {
+  .accordion__container.in-view {
     opacity: 1;
     transform: translateX(0);
   }  
