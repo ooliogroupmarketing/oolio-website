@@ -40,7 +40,6 @@
 .box--3 {
   grid-row: 7 / 13;
   grid-column: 1 / 13;
-  background: none;
 }
 .box img {
   width: 100%;

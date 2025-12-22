@@ -297,6 +297,7 @@
             "id": "style.quote.background_gradient",
             "display": "select",
             "choices": [
+              ["background--no-gradient", "No gradient"],
               ["background--gradient1", "Background gradient 1"],
               ["background--gradient2", "Background gradient 2"],
               ["background--gradient3", "Background gradient 3"],
@@ -304,7 +305,7 @@
             ],
             "label": "Background gradient",
             "name": "background_gradient",
-            "default": "background--gradient1"
+            "default": "background--no-gradient"
           }
         ],
         "name": "quote",
