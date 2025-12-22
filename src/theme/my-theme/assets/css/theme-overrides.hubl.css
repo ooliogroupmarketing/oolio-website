@@ -985,13 +985,13 @@ a.background--gradient4:focus::before {
 
 /* Containers for half layout width for full width sections */
 .half-layout__container {
-  padding-top: {{ vertical_section_padding_mobile }};
-  padding-bottom: {{ vertical_section_padding_mobile }};
+  /* padding-top: {{ vertical_section_padding_mobile }};
+  padding-bottom: {{ vertical_section_padding_mobile }}; */
 }
 @media (min-width: 1024px) {
   .half-layout__container {
-    padding-top: {{ vertical_section_padding }};
-    padding-bottom: {{ vertical_section_padding }};    
+    /* padding-top: {{ vertical_section_padding }};
+    padding-bottom: {{ vertical_section_padding }};     */
     max-width: {{ container_width_half }};
   }
 }
