@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+.boxes__container {
+  padding: 64px 0;  
+}
 .boxes__body,
 .boxes__actions {
   padding-left: 16px;
@@ -119,7 +122,7 @@
   }
   .boxes--grid-left .boxes__container {
     margin: 0 auto 0 0;
-    padding-left: 62px;
+    padding: 0 0 0 62px;
     opacity: 0;
     transform: translateX(50px);
     transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s;

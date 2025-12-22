@@ -81,10 +81,11 @@
       {
         "type": "choice",
         "id": "carousel.carousel_item_style",
-        "display": "radio",
+        "display": "select",
         "choices": [
           ["style1", "Item style 1"],
-          ["style2", "Item style 2"]
+          ["style2", "Item style 2"],
+          ["style3", "Item style 3"]
         ],
         "label": "Carousel item style",
         "name": "carousel_item_style",
