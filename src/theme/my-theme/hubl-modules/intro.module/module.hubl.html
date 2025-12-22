@@ -9,6 +9,9 @@
 
 <div class="intro" x-data>
   <div class="intro__heading" x-intersect.once="$el.classList.add('in-view')">
+    {% if module.tag %}
+      <span class="tag">{{ module.tag }}</span>
+    {% endif %}
     {% if module.intro_heading %}
       <h2>{{ module.intro_heading }}</h2>
     {% endif %}

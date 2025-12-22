@@ -1,5 +1,13 @@
 [
- {
+  {
+    "type": "text",
+    "id": "tag",
+    "validation_regex": "",
+    "label": "Tag",
+    "name": "tag",
+    "default": null
+  }, 
+  {
   "type": "text",
   "id": "intro_heading",
   "validation_regex": "",
