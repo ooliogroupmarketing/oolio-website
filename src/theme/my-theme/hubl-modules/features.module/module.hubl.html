@@ -19,9 +19,11 @@
   {% else %}
     <div class="features__wrapper features__wrapper--grid">
   {% endif %}
-    {% if module.features_image.src %}
+    {% if module.styles.features.features_style == 'features__ticker' %}
       <div class="features__image">
-        <img src="{{ module.features_image.src }}?noresize" alt="{{ module.features_image.alt }}" width="{{ module.features_image.width }}" height="{{ module.features_image.height }}">
+        {% if module.features_image.src %}
+          <img src="{{ module.features_image.src }}?noresize" alt="{{ module.features_image.alt }}" width="{{ module.features_image.width }}" height="{{ module.features_image.height }}">
+        {% endif %}
       </div>
     {% endif %}
     {% if module.styles.features.features_style == 'features__ticker' %}
