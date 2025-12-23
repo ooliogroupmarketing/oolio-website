@@ -106,7 +106,7 @@
         "max": 500,
         "min": 0,
         "suffix": "px",
-        "default": 80
+        "default": 100
       },
       {
         "label": "Maximum content width",

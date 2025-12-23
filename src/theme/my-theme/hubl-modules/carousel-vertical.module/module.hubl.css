@@ -171,7 +171,7 @@
   }
   .cvertical__container {
     margin: 0 0 0 auto;
-    padding-right: 62px;
+    padding: 80px 62px 80px 0;
     opacity: 0;
     transform: translateX(-50px);
     transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s;    
