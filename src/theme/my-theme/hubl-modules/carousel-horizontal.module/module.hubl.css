@@ -9,6 +9,7 @@
 }
 .chorizontal__container {
   padding: 64px 0;
+  width: 100%;
 }
 .chorizontal__body,
 .chorizontal__actions {
