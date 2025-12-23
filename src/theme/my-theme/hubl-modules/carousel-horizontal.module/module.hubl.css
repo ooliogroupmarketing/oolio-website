@@ -222,10 +222,8 @@
     container-type: inline-size;
     container-name: chitem;
   }
-  .chitem__hover p {
-    display: block;
-    margin-right: 48px;
-  }
+  .chitem--style1 .chitem__hover p,
+  .chitem--style1 .chitem__hover ul,
   .chitem--style1 .chitem__overlay p,
   .chitem--style1 .chitem__overlay ul {
     display: block;

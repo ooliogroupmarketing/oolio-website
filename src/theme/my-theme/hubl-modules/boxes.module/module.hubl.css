@@ -133,7 +133,7 @@
   }  
   .boxes--grid-right .boxes__container {
     margin: 0 0 0 auto;
-    padding-right: 62px;
+    padding: 0 62px 0 0;
   }
   .boxes--grid-left .box {
     opacity: 0;

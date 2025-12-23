@@ -200,10 +200,8 @@
     container-type: inline-size;
     container-name: cvitem;    
   }
-  .cvitem__hover p {
-    display: block;
-    margin-right: 48px;
-  }    
+  .cvitem--style1 .cvitem__hover p,
+  .cvitem--style1 .cvitem__hover ul,  
   .cvitem--style1 .cvitem__overlay p,
   .cvitem--style1 .cvitem__overlay ul {
     display: block;
